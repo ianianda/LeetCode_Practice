@@ -1,0 +1,15 @@
+//required: cannot go adjacent two.
+class Solution {
+    public int rob(int[] nums) {
+        int res=0, odd=0, even=0;
+        for(int i=0;i<nums.length;++i){
+            if(i%2==0) odd=Math.max(odd+nums[i], even); //odd+=nums[i];<--not correct
+            if(i%2==1) even=Math.max(even+nums[i],odd);//even+=nums[i];<-- not correct
+        }
+        res=odd>even?odd:even;
+        return res;
+    }
+}
+//didnt expect: [2,1,1,2] --> result: 4.
+
+//SUBMISSION2.0
