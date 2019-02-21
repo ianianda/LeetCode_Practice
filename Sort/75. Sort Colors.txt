@@ -1,0 +1,24 @@
+//review: in-place algorithm [overwrite the original array]: https://zh.wikipedia.org/wiki/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95
+//required: one-pass algorithm [read the array once] with constant space.
+class Solution {
+    public void sortColors(int[] nums) {
+        int head=0, tail=nums.length-1, cur=0;
+        while(cur<=tail){
+            if(nums[cur]==0){//current value is 0, put it to the start.
+                nums[cur]=nums[head];
+                nums[head]=0;
+                head++;
+            }else if(nums[cur]==2){
+                nums[cur]=nums[tail];
+                nums[tail]=2;
+                tail--;
+                cur--;//need to recheck the value at this index.
+            }
+            cur++;
+        }
+        
+    }
+}
+
+//think about: how to combine index & value together. think smart.
+//move 0 to the start, 1 to the middle, 2 to the end. using a temp index to store the value uncheck.
