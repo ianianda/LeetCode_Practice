@@ -1,0 +1,17 @@
+//required: O(n)
+class Solution {
+    public int maxSubArray(int[] nums) {
+        if(nums.length==0) return 0;
+        if(nums.length==1) return nums[0];
+        int dp = nums[0], res = nums[0];
+        for (int i=1; i<nums.length;++i) {
+            dp=Math.max(nums[i], dp+nums[i]); //judge if add one is bigger or smaller.
+            res=Math.max(res, dp);//record the biggest result and new result, and compare.
+        }
+        return res;
+        
+    }
+}
+
+//think about: using DP to solve this type of question which need to based on the prev. result.
+//and use another variable to record some temp result.
