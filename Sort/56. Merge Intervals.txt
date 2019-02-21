@@ -1,0 +1,74 @@
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+class Solution {
+    public List<Interval> merge(List<Interval> intervals) {
+        if (intervals == null || intervals.size() == 0) {
+            return intervals;
+        }
+        //-----important part------
+        Collections.sort(intervals, new Comparator<Interval>() {
+            public int compare(Interval i1, Interval i2) {
+                return Integer.compare(i1.start, i2.start);
+            }
+        });
+        int thisEnd=intervals.get(0).end, nextStart=intervals.get(0).start;
+        //-----important part end------
+        for (int i=1; i<intervals.size(); i++) {
+            if(intervals.get(i).start<=thisEnd){
+                if(thisEnd<intervals.get(i).end) thisEnd=intervals.get(i).end;
+                //if(thisStart)
+                intervals.remove(i);
+                intervals.get(i-1).end=thisEnd;
+                thisEnd=intervals.get(i-1).end;
+                i--;
+            }else{
+                thisEnd=intervals.get(i).end;
+                nextStart=intervals.get(i).start;
+            }
+        }
+        return intervals;
+    }
+}
+
+//didnt expect:[[1,4],[0,4]]
+//refresh: using java comparator to sort list.
+//error: updating [i] for normal case.
+//to improve: using Math.max() to get overlap values.
+
+//VERSION2.0
+class Solution {
+    public List<Interval> merge(List<Interval> intervals) {
+        if (intervals == null || intervals.size() == 0) {
+            return intervals;
+        }
+        //-----important part------
+        Collections.sort(intervals, new Comparator<Interval>() {
+            public int compare(Interval i1, Interval i2) {
+                return Integer.compare(i1.start, i2.start);
+            }
+        });
+        //-----important part end------
+        //=====optimize part=======
+        LinkedList<Interval> merged = new LinkedList<Interval>();
+        for(Interval interval:intervals){
+            if(merged.isEmpty()||merged.getLast().end<interval.start){ //combine first element case.
+                merged.add(interval);
+            }
+            else{
+                merged.getLast().end = Math.max(merged.getLast().end,interval.end);
+            }
+        }
+        //=====optimize part end=======
+        
+        
+        
+        return merged;
+    }
+}
