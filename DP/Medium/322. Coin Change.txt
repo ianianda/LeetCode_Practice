@@ -1,0 +1,48 @@
+NOT WORKING:
+class Solution {
+    public int coinChange(int[] coins, int amount) {
+        int res=-1;
+        int num=0;
+        int index=coins.length-1;
+        if(coins.length==0||amount<0) return res;
+        if(amount==0) return 0;
+        Arrays.sort(coins);
+        while(amount>0){
+            if(index>=0&&amount<coins[index]){
+                index--;
+                System.out.println(amount);
+            }else if(index>=0&&amount>=coins[index]){
+                amount-=coins[index];
+                num++;
+                System.out.println(amount);
+            }else{
+                System.out.println("break here"+amount);
+                return -1;
+            }
+        }
+        return num;
+    }
+}
+//========submission1: WRONG THINKING==========
+//SUBMISSION 2.0
+
+//didnt expect: well, from max number it could result in fewest number of coin.
+//however, some amount needs to be ideally separated so it can return not -1 value.
+//didnt think about: start from 0, calculate the min counts for amounts up to i.
+//here is bottom-up iteration
+class Solution {
+    public int coinChange(int[] coins, int amount){
+        int max=amount+1;
+        int[] dp=new int[amount+1];
+        Arrays.fill(dp,max);
+        dp[0]=0;
+        for(int i=1;i<=amount;i++){
+            for(int coin:coins){
+                if(coin<=i){ //find may changeable coin
+                    dp[i]=Math.min(dp[i],dp[i-coin]+1);//******important: didnt think about it.
+                }
+            }
+        }
+        return dp[amount]>amount?-1:dp[amount];
+    }
+}
