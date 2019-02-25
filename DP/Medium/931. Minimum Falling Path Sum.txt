@@ -1,0 +1,21 @@
+//read question carefully...T_T
+class Solution {
+    public int minFallingPathSum(int[][] A) {
+        int result=Integer.MAX_VALUE;
+        for(int r=A.length-2;r>=0;--r){
+            for(int c=0;c<A[0].length;++c){
+                //---------important part-------------
+                int best=A[r+1][c];
+                if(c>0) best=Math.min(best,A[r+1][c-1]);
+                if(c<A[0].length-1) best=Math.min(best,A[r+1][c+1]);
+                //---------important part end---------
+                A[r][c]+=best;
+            }
+        }
+        for(int b:A[0]){//every element in first row
+            result=Math.min(b,result);
+        }
+        return result;
+        
+    }
+}

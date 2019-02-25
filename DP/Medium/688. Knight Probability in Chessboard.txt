@@ -1,0 +1,79 @@
+//WRONG ANSWER
+class Solution {
+    public double knightProbability(int N, int K, int r, int c) {
+        double result=8^K;
+        int count=0;
+        while(K>0){
+            //(1,2)
+            if(r-1>0&&c-2>0){
+                r--;
+                c-=2;
+                count++;
+            }else if(r-1>0&&c+2<N){
+                r--;
+                c+=2;
+                count++;
+            }else if(r+1<N&&c+2<N){
+                r++;
+                c+=2;
+                count++;
+            }else if(r+1<N&&c-2>0){
+                r++;
+                c-=2;
+                count++;
+            }else if(r-2>0&&c-1>0){
+                r+=2;
+                c--;
+                count++;
+            }else if(r-2>0&&c+1<N){
+                r-=2;
+                c++;
+                count++;
+            }else if(r+2<N&&c-1>0){
+                r+=2;
+                c--;
+                count++;
+            }else if(r+2<N&&c+1<N){
+                r+=2;
+                c++;
+                count++;
+            }else{
+                
+            }
+            --K;
+        }
+        result=count/result;
+        return result;
+    }
+}
+
+//IMPROVED
+//difficulty: to understand and get how to count valuable steps.
+//and, to understand what the question is asking...
+class Solution {
+    public double knightProbability(int N, int K, int r, int c) {
+        double[][] dp= new double[N][N];
+        double result=0, kk=(double)K;
+        dp[r][c]=1;
+        int[] dr = new int[]{2, 2, 1, 1, -1, -1, -2, -2};
+        int[] dc = new int[]{1, -1, 2, -2, 2, -2, 1, -1};//didnt think about it
+        for(;K>0;K--){
+            double[][] dp2=new double[N][N];
+            for(int i=0;i<N;i++){
+                for(int j=0;j<N;j++){ // for whole grid
+                    for(int k=0;k<8;k++){
+                        int x = i + dr[k];
+                        int y = j + dc[k];
+                        if(x<0||y<0||x>=N||y>=N) continue;
+                        dp2[x][y]+=dp[i][j];//=========important==========didnt think about it.
+                    }
+                }
+            }
+            dp=dp2;
+        }
+        for(double[] row: dp){
+            for(double x: row) result+=x;
+        }
+        return result/Math.pow(8,kk);
+    }
+}

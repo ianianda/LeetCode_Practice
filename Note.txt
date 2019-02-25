@@ -1,0 +1,1 @@
+DP: each step has its own row x col's grid, update each grid by each step.
