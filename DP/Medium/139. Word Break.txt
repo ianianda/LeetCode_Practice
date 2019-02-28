@@ -1,0 +1,45 @@
+//Version 1.0: single character cannot pass the test cases
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        Set<String> worddict = new HashSet(wordDict);
+        //for(int i=0;i<s.length();i++){
+        int res=A(0,s,wordDict);
+        if(res==s.length()-1) return true;
+        return false;
+    }
+    
+    public int A(int i,String s,List<String> wordDict){
+        int j=i+1;//5
+        //ignore single value...
+        //if(s.length()==1&&wordDict.contains(s)) return s.length()-1;
+        while(i<s.length()&&j<s.length()){//j<=7,
+            if(!wordDict.contains(s.substring(i,j+1))){//6,7,8
+                ++j;
+            }else{
+                if(j==s.length()-1)return j;
+                i=j+1;
+            }
+        }
+        return -1;
+    }
+}
+
+//improved:=========a new way of thinking========
+class Solution {
+    public boolean wordBreak(String s, List<String> wordDict) {
+        //Set<String> wordDictSet=new HashSet(wordDict);//do we have to need this?
+        boolean[] dp=new boolean[s.length()+1];//why+1?
+        dp[0]=true;
+        for(int i=1;i<=s.length;i++){
+            for(int j=0;j<i;j++){
+                if(dp[j]&&wordDict.contains(s.substring(j,i))){
+                    dp[i]=true;
+                    break;
+                }
+            }
+        }
+        return dp[s.length()]; 
+    }
+}
+//time comlexity: O(n^2)
+//space complexity: O(n)

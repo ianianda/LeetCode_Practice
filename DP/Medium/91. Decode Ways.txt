@@ -1,0 +1,24 @@
+//didnt think of: this is a classic problem on CTCI of the subset problem.
+//start from single char, and add second, add third...
+//just think: how many ways of 1 char, and then 2 char is based on 1 char...
+class Solution {
+    public int numDecodings(String s) {
+        if(s.length()==0||s==null) return 0;
+        int[] dp=new int[s.length()+1];
+        dp[0]=1;//why?
+        dp[1] = s.charAt(0) != '0' ? 1 : 0; //single char only has 1 way as long as its not 0.
+        for(int i=2;i<=s.length();i++){
+            int first=Integer.valueOf(s.substring(i-1,i));//226-->2
+            int second=Integer.valueOf(s.substring(i-2,i));//226-->22
+            if(first!=0){
+                dp[i]+=dp[i-1];//it can own all the ways before this digit.
+            }
+            if(second<=26&&second>=10){
+                dp[i]+=dp[i-2];//======important======== own all the ways before (this digit+prev.digit).
+            }
+        }
+        return dp[s.length()];//substring only till i-1, so...we need to reach i+1
+        
+        
+    }
+}
