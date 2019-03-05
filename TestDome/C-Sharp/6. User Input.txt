@@ -1,0 +1,68 @@
+User interface contains two types of user input controls: TextInput, which accepts all characters and NumericInput, which accepts only digits.
+
+Implement the class TextInput that contains:
+
+Public method void Add(char c) - adds the given character to the current value
+Public method string GetValue() - returns the current value
+Implement the class NumericInput that:
+
+Inherits TextInput
+Overrides the Add method so that each non-numeric character is ignored
+For example, the following code should output "10":
+
+TextInput input = new NumericInput();
+input.Add('1');
+input.Add('a');
+input.Add('0');
+Console.WriteLine(input.GetValue());
+
+using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+public class TextInput
+{
+    protected StringBuilder sb;
+    
+    public virtual void Add(char c)
+    {
+        if(sb==null) {sb=new StringBuilder();}
+        sb.Append(c);
+    }
+
+
+    public string GetValue()
+    {
+        return sb?.ToString();
+    }
+}
+
+public class NumericInput : TextInput
+{
+    public override void Add(char c)
+    {
+        if(int.TryParse(c.ToString(), out int value))
+        {
+            base.Add(c);
+        }
+        //sb.Append(value.ToString());
+     }    
+}
+
+public class UserInput
+{
+    public static void Main(string[] args)
+    {
+        TextInput input = new NumericInput();
+        input.Add('1');
+        input.Add('a');
+        input.Add('0');
+        Console.WriteLine(input.GetValue());
+    }
+}
+
+Hint 1: A function can override its parent if it is marked as virtual.
+Hint 2: Char.IsDigit() checks to see if a character is a decimal digit.

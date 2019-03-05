@@ -1,0 +1,59 @@
+//Version1: do not know how to solve null pointer.
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root==null) return true;
+        if(root.left.left!=null){
+            isValidBST(root.left);
+        }else{
+            if(root.val<=root.left.val) return false;
+        }
+        if(root.right.right!=null){ //<----- java.lang.NullPointerException
+            isValidBST(root.right);
+        }else{
+            if(root.right.val<=root.val) return false;
+        }
+        return true;
+    }
+}
+
+//Version2:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+       Stack<TreeNode> st = new Stack<>();
+       double value=-Double.MAX_VALUE;//if root.val= -2147483648 //outofbound of int
+        
+       while(!st.empty()||root!=null){
+           while(root!=null){
+               st.push(root);
+               root=root.left;
+           }
+            //TreeNode left=st.pop();
+            root=st.pop();
+            //TreeNode right=root.right;
+       
+           //while(left.val<check.val&&right.val>check.val){
+            //root=st.pop();
+            //left=root.left;
+            //check=root.right;
+       
+           if(root.val<=value){
+               return false;
+           }
+           value=root.val;
+           root=root.right;
+       }
+        return true;
+     } 
+        
+    }
+//time complexity: O(n)
+//space complexity: O(n)

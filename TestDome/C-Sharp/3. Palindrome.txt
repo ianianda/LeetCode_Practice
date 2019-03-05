@@ -1,0 +1,41 @@
+A palindrome is a word that reads the same backward or forward.
+
+Write a function that checks if a given word is a palindrome. Character case should be ignored.
+
+For example, IsPalindrome("Deleveled") should return true as character case should be ignored, resulting in "deleveled", which is a palindrome since it reads the same backward and forward.
+
+using System;
+
+public class Palindrome
+{
+    public static bool IsPalindrome(string word)
+    {
+        string s1=word;
+        int l = s1.Length;
+            int eIndex = s1.Length - 1;
+            int bIndex = 0;
+            bool result = true;
+
+            while (eIndex != bIndex && bIndex < l - 1 && eIndex > -1)
+            {
+                while (s1[bIndex] == '.' || s1[bIndex] == ' ')
+                {
+                    bIndex = bIndex + 1;
+                }
+
+                while (s1[eIndex] == '.' || s1[eIndex] == ' ')
+                {
+                    eIndex = eIndex - 1;
+                }
+
+                if (bIndex < l - 1 && eIndex >= 0)
+                {
+                    result = s1[bIndex].ToString().ToUpper() == s1[eIndex].ToString().ToUpper() && result;
+                }
+
+                bIndex = bIndex + 1;
+                eIndex = eIndex - 1;
+            }
+            return result;
+    }
+}
