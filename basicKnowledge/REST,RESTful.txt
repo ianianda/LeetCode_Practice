@@ -1,0 +1,19 @@
+REST(Representational State Transfer): 
+- using URL to locate resource, using HTTP verbs to describe actions such as GET/POST/DELETE/DETC.
+- describe interaction between client & server. i.e. using JSON/XML/JPG/WebP transfer data.
+- people focus on design RESTful API.
+- using HTTP Status Code delivers the status of Server. i.e. 200 for success, 500 for internal error.
+- Web&Server only use API to transfer/modify data.
+- using an interface to provide service to web,ios,andriod,etc.
+- design API: URL root, versioning, noun in plural, make sure HEAD/GET is safe and wont change status of resources, if return data is too large, use pagination(in header using link) or add limit
+- URL tells what you wanna do, HTTP method tells what to do, http status code tells the result.
+- client-server separated.
+- stateless. each request contains all info that server needed 
+- cachable.
+- layered system.
+- uniform interface.
+
+
+Node.js
+- Single thread
+- event-driven

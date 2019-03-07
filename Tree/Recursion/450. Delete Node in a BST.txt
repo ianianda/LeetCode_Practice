@@ -1,0 +1,39 @@
+//didnt think of: after deleted, which node is going to replace that one? answer: the min node on the right side.
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root==null) return null;
+        if(key<root.val){
+            root.left=deleteNode(root.left,key);
+        }else if(key>root.val){
+            root.right=deleteNode(root.right,key);
+        }else{//if == key
+            if(root.left==null&&root.right!=null) return root.right;// recursion: end when return xxx.
+            if(root.left!=null&&root.right==null) return root.left;
+            if(root.left==null&&root.right==null) return null;
+            //-----important part: find the min on the right sub-tree.---------
+            //here is right&left both !=null
+            TreeNode minNode = findMin(root.right);
+            root.val=minNode.val;
+            root.right=deleteNode(root.right,root.val);//found it, and delete it. 
+        }
+        return root;
+        
+    }
+    private TreeNode findMin(TreeNode node){
+        while(node.left != null){
+            node = node.left;
+        }
+        return node;
+    }
+}
+
+//time complexity: worst case: O(n).
