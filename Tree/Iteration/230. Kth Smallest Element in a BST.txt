@@ -1,0 +1,30 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int kthSmallest(TreeNode root, int k) {
+        Stack<TreeNode> st=new Stack();
+        TreeNode p=root;
+        TreeNode t=root;
+        int count=0;
+        while(p!=null||!st.isEmpty()){
+            if(p!=null){
+                st.push(p);
+                p=p.left;
+            }else{
+                t=st.pop();
+                if(++count==k) return t.val; //important: put in this area. not outside the if-else statement because you wanna check when left subtree doesnt have any thing.
+                p=t.right;
+            }
+            
+
+        }
+        return Integer.MIN_VALUE;
+    }
+}
