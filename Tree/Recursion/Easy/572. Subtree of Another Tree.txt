@@ -1,0 +1,31 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean isSubtree(TreeNode s, TreeNode t) {
+        if(s==null&&t==null) return true;
+        if(s==null||t==null) return false;
+        //if(s.val==t.val) return isSubtree(s,t.left)&&isSubtree(s,t.right);
+        //else false;
+        //if this node this extractly the one we are looking for.
+        if(isSubtreeHelper(s,t)) return true;
+        //if this node is not the one we are looking for, then searching from next level.
+        return isSubtree(s.left,t)||isSubtree(s.right,t);//traversal s not t(subtree)!!!!!!!!
+    }
+    private boolean isSubtreeHelper(TreeNode s, TreeNode t){
+        if(s==null&&t==null) return true;
+        if(s==null||t==null) return false;
+        if(s.val!=t.val) return false;
+        //if two nodes' values are equal, then comparing the children.
+        return isSubtreeHelper(s.left,t.left)&&isSubtreeHelper(s.right,t.right);
+    }
+}
+
+//first, we need to find the same root, and then checking its children if they are exactly the same.
+//the helper function is checking if the children are the same. the parent function is finding the same root.

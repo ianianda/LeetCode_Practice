@@ -1,1 +1,2 @@
 DP: each step has its own row x col's grid, update each grid by each step.
+Tree: normally use DFS/BFS with recursion/iteration based on what questions asked.
