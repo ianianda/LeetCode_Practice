@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        ArrayList<Integer> list1=new ArrayList<>();
+        ArrayList<Integer> list2=new ArrayList<>();
+        
+        //get leaves in different lists.
+        helper(root1,list1);
+        helper(root2,list2);
+        
+        if(list1.size()!=list2.size()) return false;
+        for(int i=0;i<list1.size();i++){
+            if(list1.get(i)!=list2.get(i)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    //adding the leaves to list.
+    public void helper(TreeNode root,ArrayList<Integer> list){
+        if(root==null) return;
+        if(root.left==null&&root.right==null) list.add(root.val);
+        helper(root.left,list);
+        helper(root.right,list);
+    }
+}
+
+//IMPROVED:
+//think of which data structure have the function can quickly get the result for the question.
+class Solution {
+    public boolean leafSimilar(TreeNode root1, TreeNode root2) {
+        //System.out.println(helper(root1));
+        return helper(root1).equals(helper(root2));
+    }
+    
+    public String helper(TreeNode root){
+        if(root==null) return "";
+        if(root.left==null&&root.right==null) return root.val+""; //+"": convert int to string
+        return helper(root.left)+helper(root.right); //
+    }
+}
