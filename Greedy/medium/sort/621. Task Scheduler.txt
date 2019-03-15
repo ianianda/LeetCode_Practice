@@ -1,0 +1,19 @@
+//a new way to think of "idle": must have two slots between the same task A and A.
+//key word: round robin.
+
+class Solution {
+    public int leastInterval(char[] tasks, int n) {
+        //count each tasks frequency.
+        int[] fre=new int[26];
+        int res=0, max=0, count=0;
+        for(char c:tasks){
+            ++fre[c-'A'];
+            max=Math.max(fre[c-'A'],max);
+        }
+        for(int i=0;i<fre.length;i++){
+            if(max==fre[i]) ++count;
+        }
+        res=(max-1)*(n+1)+count;//i.e. B--B--B--B  three groups of B--, (max-1): how many groups, n+1: how many elements in a group.
+        return Math.max(tasks.length,res);//res is counting the worst scenario.
+    }
+}

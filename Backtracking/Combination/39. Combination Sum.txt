@@ -1,0 +1,20 @@
+//no duplicate.
+
+class Solution {
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(nums);
+        backtrack(res, new ArrayList<>(), nums, target, 0);
+        return res;
+    }
+    
+    private void backtrack(List<List<Integer>> res, List<Integer> tempList, int[] nums, int target, int start){
+        if(target<0) return;
+        if(target==0) res.add(new ArrayList<>(tempList));//when meet the requirement, adding to the result.
+        for(int i = start; i < nums.length; i++){
+            tempList.add(nums[i]);
+            backtrack(res, tempList, nums, target-nums[i],i);//here is i not i+1, because we can reuse the element. no need start from [0], because it already looped. i.e. 2,2,3 v.s. 3,2,2 are the same.
+            tempList.remove(tempList.size() - 1);
+        }
+    }
+}

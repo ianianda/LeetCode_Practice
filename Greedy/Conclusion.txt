@@ -1,0 +1,20 @@
+1.sort two arrays
+2.find the right/worst element meets your requirement.
+
+complexity:sort:O(nlogn) find the right order:O(n)
+
+--------------
+array cannot be sorted:
+
+
+
+--------
+both: use Math.max tracking.
+
+----------
+diff. btw DP v.s. Greedy:
+DP:Looking from the end and at each point ahead checking the best possible way to reach the end
+Greedy:Looking from the start and selecting the locally optimum in the hope of reaching global optimum
+
+DO NOT OVERTHINKING
+

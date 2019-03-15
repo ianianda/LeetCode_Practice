@@ -1,0 +1,14 @@
+- Using combination(bit operation) or permutation in DFS. This is the foundamental of search problems.
+- Combination: do not care order. / Permutation: realted to order. different order counts as a situation.
+trending of this kind of questions: less and less and become more like DP.
+
+give you an array of integers, ask you:
+
+a)how many subset? : in math: 2^n. combination / bit operation
+https://www.youtube.com/watch?v=bGC2fNALbNU
+
+b)how many subset can sum to target number? combination
+
+c)given array has duplicate elements need to be sorted first.
+
+d)both key point: if statements!!!!!!!!!!!!

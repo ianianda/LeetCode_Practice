@@ -1,0 +1,17 @@
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res=new ArrayList<>();
+        if(nums==null||nums.length==0) return res;
+        helper(nums, new ArrayList<Integer>(), res);//no need for index. we are not count index, we need go thru each element in the nums.        
+        return res;
+    }
+    private void helper(int[] nums,ArrayList<Integer> temp,List<List<Integer>> res){
+        if(temp.size()==nums.length) res.add(new ArrayList<Integer>(temp));
+        for(int i=0;i<nums.length;i++){
+            if(temp.contains(nums[i])) continue;
+            temp.add(nums[i]);
+            helper(nums,temp,res);
+            temp.remove(temp.size()-1);
+        }    
+    }
+}

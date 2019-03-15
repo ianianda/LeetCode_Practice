@@ -1,0 +1,12 @@
+//judge true or false: consider the false scenario. which situation leads to it?
+class Solution {
+    public boolean canJump(int[] nums) {
+        boolean res=false;
+        int maxPath=0;
+        for(int i=0;i<nums.length;i++){
+            if(i>maxPath) return false;//=========important==========
+            maxPath=Math.max(nums[i]+i,maxPath);
+        }
+        return true;
+    }
+}

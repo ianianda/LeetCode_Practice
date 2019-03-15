@@ -1,0 +1,17 @@
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(n<=0||k<=0||n<k) return res;
+        helper(n,k,res,new ArrayList<Integer>(),1);
+        return res;
+    }
+    private void helper(int n, int k, List<List<Integer>> res, ArrayList<Integer> temp, int index){
+        //count how many elements we have right now. only insert k elements array into the res.
+        if(k==0) res.add(new ArrayList<Integer>(temp));
+        for(int i=index;i<=n;i++){//bug: i!=index!!!mixed i and index T_T
+            temp.add(i);
+            helper(n,k-1,res,temp,i+1);
+            temp.remove(temp.size()-1);
+        }
+    }
+}

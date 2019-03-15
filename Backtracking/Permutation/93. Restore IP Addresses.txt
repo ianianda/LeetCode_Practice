@@ -1,0 +1,26 @@
+// https://www.youtube.com/watch?v=pi-S2TLYuL4 
+
+class Solution {
+    public List<String> restoreIpAddresses(String s) {
+        List<String> res=new LinkedList<String>();
+        helper(s,res,0,0,"");
+        return res;
+    }
+    private void helper(String s,List<String> res,int index,int count,String ip){
+        if(count>4) return;//if # of chunk > 4. ip has 4 chuncks only.
+        if(count==4 && s.length()==index){//== index: make sure only the combination meeting the requirement will put into the res.
+            res.add(ip);
+            return;
+        }
+        //==========important part==================
+        for(int i=1;i<4;i++){
+            if(index+i>s.length()) break;
+            String sub=s.substring(index,index+i);
+            if((sub.startsWith("0") && sub.length() > 1) || (Integer.parseInt(sub) >= 256)) break;
+            helper(s,res,index+i,count+1,ip+sub+(count==3?"":"."));
+        }
+    }
+}
+
+//time complexity: O(1)
+//space:O(n)

@@ -1,0 +1,20 @@
+class Solution {
+    //duplicate element in candidates, but cannot be reused.
+    //thinking: get all subsets, only add the right one into the res.
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        Arrays.sort(candidates);
+        helper(res, new ArrayList<Integer>(), candidates, target, 0);
+        return res;
+    }
+    private void helper(List<List<Integer>> res, List<Integer> temp, int[] candidates, int target, int index){
+        if(target<0) return;
+        if(target==0) res.add(new ArrayList<Integer>(temp));
+        for(int i=index;i<candidates.length;i++){
+            if(i>index&&candidates[i]==candidates[i-1]) continue;//not i>0 because when 1,1 the second 1 is unique based on the requirement.
+            temp.add(candidates[i]);
+            helper(res,temp,candidates,target-candidates[i],i+1);
+            temp.remove(temp.size()-1);
+        }
+    }
+}
