@@ -1,0 +1,40 @@
+class Solution {
+    public void reverseString(char[] s) {
+        if(s == null || s.length == 0) return;
+        int begin = 0, end = s.length - 1;
+        while(begin <= end){
+            char c = s[begin];
+            s[begin] = s[end];
+            s[end] = c;
+            begin++;
+            end--;
+        }
+    }
+}
+
+some interview questions:
+
+
+Use Java API or implement it low level?
+Call reverse Java API?
++= between Strings in core loop (see, not all solutions are O(n) ;)
+StringBuilder VS StringBuffer (synchronized)
+Construct a StringBuilder from input and do mutating operations: charAt and setCharAt
+Use toCharArray() and read from char[], or use String.charAt()
+Do preallocate builder capacity or let it grow?
+Use append(char) or setCharAt?
+How to iterate?
+loop based on input length
+two pointers (start | end) or loop all items
+start from front or back
+while or for
+while(true) or while(start < end) or while(start <= end)
+cache length in for loop or query each time
+recursion
++=
+Collecting argument (char[] + index, StringBuilder)
+Create a method for iteration or leave it inline?
+shortcut for "", "x"?
+specialize for "xy" and "xyz"?
+What about null input?
+How do you format your code?

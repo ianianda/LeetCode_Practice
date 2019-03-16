@@ -1,0 +1,3 @@
+- Swap: 344. Reverse String
+- setup an index as foundamental, two pointers iterate the whole arrays: 15. 3Sum
+
