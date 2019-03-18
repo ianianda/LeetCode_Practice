@@ -1,3 +1,5 @@
 - Swap: 344. Reverse String
 - setup an index as foundamental, two pointers iterate the whole arrays: 15. 3Sum
+- two pointers (fast and slow): 142. Linked List Cycle II
+                                287. Find the Duplicate Number
 

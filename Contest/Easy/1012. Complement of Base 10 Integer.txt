@@ -1,0 +1,41 @@
+//topic: MATH
+public static int bitwiseComplement(int N) {
+        int res=0;
+        long temp=0;
+        if(N==0) return res; 
+        String s = "";
+        while(N!=0) {
+            if(N%2==1){
+                s+=""+0;//5/2=2..1;2/2=1...0;1/2=0...1  010
+            }else{
+                s+=""+1;
+            }
+            //s += N%2;
+            N=N/2;
+        }
+        System.out.print(s);
+        int j=0;
+        while(s.charAt(j)==0){
+            s=s.substring(j+1);
+            j++;
+        }
+        long ss=Integer.parseInt(s),i=0;
+        while(ss!=0){//010
+            temp=ss%10; //10%10=1
+            res+=temp*Math.pow(2,i);
+            i++;
+            ss=ss/10;
+        }
+        return res;
+    }
+
+//IMPROVED:
+class Solution {
+    public int bitwiseComplement(int N) {
+        int bitCount = (int) Math.floor(Math.log(N)/Math.log(2))+1;
+		System.out.print(1 << bitCount);
+
+        // XOR the given integer with math.pow(2,bitCount-1)
+        return ((1 << bitCount) - 1) ^ N;
+    }
+}

@@ -1,0 +1,32 @@
+similar: #774 (locked)
+
+class Solution {
+    public int minEatingSpeed(int[] piles, int H) {
+        if(piles==null||piles.length==0) return 0;
+        //Arrays.sort(piles);
+        int N=piles.length, K=0, start=1, end=1111111111;
+        float sum=0;
+        //we know K is in the piles[].
+        while(start<end){
+            int mid=(start+end)/2;
+            sum=0;
+            for(float i:piles){//to avoid MATH.CEIL function truncating.
+                //sum+=i; --> wrong.
+                // (p + m - 1) / m
+                //sum+=(i+mid-1)/mid;//check each pile can be eaten in how many hours.
+                sum+=Math.ceil(i/mid);
+                //System.out.println(i+" "+mid+" "+sum);
+            }
+            if(sum>H){ // total hours > guard backing.
+                start=mid+1;
+            }else{
+                end=mid;
+            }
+        }
+        return start;
+    }
+}
+
+//a test case:
+[332484035, 524908576, 855865114, 632922376, 222257295, 690155293, 112677673, 679580077, 337406589, 290818316, 877337160, 901728858, 679284947, 688210097, 692137887, 718203285, 629455728, 941802184]
+823855818
