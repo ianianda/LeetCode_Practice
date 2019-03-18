@@ -1,0 +1,44 @@
+public static int numDupDigitsAtMostN(int N) {
+        int res=0;
+        if(N==0) return res;
+        //10=0
+        //100=11,22,33,44,55,66,77,88,99, 100 ==> 10
+        //200="100"+111(110,111,112,113,114,115,116,117,118,119.total:10),122,133,144,155,166,177,188,199, 200 ==> 10 +10+9
+        //300="100+200"+211+222(220,221,222,...,229.total:10)+233+244+255+266+277+288+299+ 300 ==>10+10+9 +10+9
+        //400="100+200+300"+311+322+333(330,331,332,333,...,339.total:10)+344+355+366+377+388+399+ 400
+        //...
+        //1000="100+200+300+400+500+600+700+800+900"+910+920+930+940+950+960+970+980+990(991,992,993,994,995)+ 1000
+        
+        
+        
+        return res;
+    }
+
+//IMPROVED:
+ public int numDupDigitsAtMostN(int N) {
+        // Transform N + 1 to arrayList
+        ArrayList<Integer> L = new ArrayList<Integer>();
+        for (int x = N + 1; x > 0; x /= 10)
+            L.add(0, x % 10);
+
+        // Count the number with digits < N
+        int res = 0, n = L.size();
+        for (int i = 1; i < n; ++i)
+            res += 9 * A(9, i - 1);
+
+        // Count the number with same prefix
+        HashSet<Integer> seen = new HashSet<>();
+        for (int i = 0; i < n; ++i) {
+            for (int j = i > 0 ? 0 : 1; j < L.get(i); ++j)
+                if (!seen.contains(j))
+                    res += A(9 - i, n - i - 1);
+            if (seen.contains(L.get(i))) break;
+            seen.add(L.get(i));
+        }
+        return N - res;
+    }
+
+
+    public int A(int m, int n) {
+        return n == 0 ? 1 : A(m, n - 1) * (m - n + 1);
+    }
