@@ -1,1 +1,25 @@
 //understand the question!!!!
+class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        if(obstacleGrid==null||obstacleGrid.length==0) return 0;
+        int[][] temp=new int[obstacleGrid.length+1][obstacleGrid[0].length+1];
+        for (int[] row: temp)
+            Arrays.fill(row, -1);
+        return dp(obstacleGrid.length,obstacleGrid[0].length,temp,obstacleGrid);   
+    }
+    
+    private int dp(int x,int y, int[][] temp, int[][] ob){
+        if(x<=0||y<=0) return 0;//at the out of the grid.
+        //the robot locating at [1,1]
+        if(x==1&&y==1) return 1-ob[0][0];
+        
+        if(temp[x][y]!=-1) return temp[x][y];
+        if(ob[x-1][y-1]==1){
+            temp[x][y]=0; //obstacle is here, so no way to go thru here. so is 0             
+        }else{
+            temp[x][y]=dp(x-1,y,temp,ob)+dp(x,y-1,temp,ob);
+        }
+        //System.out.print(Arrays.toString(temp[0]));
+        return temp[x][y];
+    }
+}
