@@ -1,0 +1,41 @@
+//two ways: (1)DP (2)DFS: because its BST.
+//DFS is easier than DP.
+//thinking process: analyse the characteristic of the question. find the characteristic!
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if(n<=0) return new ArrayList<>();
+        return dfs(1,n);
+    }
+    private List<TreeNode> dfs(int start,int end){
+        List<TreeNode> list=new ArrayList<>();
+        if(start>end){
+            list.add(null); //========important=======
+            return list;
+        }
+        for(int i=start;i<=end;i++){
+            List<TreeNode> leftList=dfs(start,i-1);
+            List<TreeNode> rightList=dfs(i+1,end);
+            //============important part==============
+            for(TreeNode left:leftList){
+                for(TreeNode right:rightList){
+                    TreeNode root=new TreeNode(i);
+                    root.left=left;
+                    root.right=right;
+                    list.add(root);
+                }
+            }
+        }
+        return list;
+    }
+}

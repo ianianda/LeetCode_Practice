@@ -1,0 +1,22 @@
+//didnt think of:
+i.e. n=3 
+       root=1 left:0 right:2  f(0)*f(2) //because only 0 is smaller than 1, right is 2 because 2,3 are larger than 1
+       root=2 left:1 right:1  f(1)*f(1)
+       root=3 left:2 right:0  f(2)*f(0)
+f(3)=f(0)*(2)+f(1)*f(1)+f(2)*f(0)
+
+formula: 
+f(n)=f(0)*f(n-1)+f(1)*f(n-1-1)+...+f(n-1)*f(0)
+
+class Solution {
+    public int numTrees(int n) {
+        int[] temp=new int[n+1]; //because has [0]
+        temp[0] = temp[1] = 1;
+        for(int i=2;i<=n;i++){ //condition is important.
+            for(int j=1;j<=i;j++){
+                temp[i]+=temp[j-1]*temp[i-j]; //====important part=====               
+            }
+        }
+        return temp[n];
+    }
+}
