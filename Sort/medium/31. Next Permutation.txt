@@ -1,0 +1,27 @@
+//REQUIRED:in-place algorithm
+//Cannot understand the question T-T.
+//IMPORTANT: find the characteristic of the questions array!!!!!!!!!
+
+class Solution {
+    public void nextPermutation(int[] nums) {
+        if(nums==null||nums.length==0) return;
+        int replace=nums.length-2;//start from the last element
+        while(replace>=0){
+            if(nums[replace]<nums[replace+1]) break;
+            replace--;//4321 --> give replace=-1
+        }
+        if(replace<0){
+            Arrays.sort(nums);
+            return;
+        }
+        int index=replace+1;
+        while(index<nums.length&&nums[index]>nums[replace]){//notice:replace is not moving, because we just need a number which is larger than the replace element.
+            index++;
+        }
+        int temp=nums[replace];
+        nums[replace]=nums[index-1];
+        nums[index-1]=temp;
+        Arrays.sort(nums,replace+1,nums.length);
+        
+    }
+}

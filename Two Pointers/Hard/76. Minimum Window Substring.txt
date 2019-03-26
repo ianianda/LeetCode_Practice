@@ -1,0 +1,24 @@
+class Solution {
+    public String minWindow(String s, String t) {
+       int[] tMap = new int[64];                   //s,t contain only 'A' - 'Z' and 'a' - 'z'
+        for(int i = 0;i<t.length();i++){
+            tMap[t.charAt(i)-'A']++;                //initialization of tMap array.
+        }
+        int start = 0,end = 1000_000_007, buffer = 0;
+        for(int i = 0, j= 0;j<s.length();j++){
+            if(tMap[s.charAt(j)-'A'] > 0) buffer++; //occurance or frequency of char in t will be decrease to 0 or even negative
+            tMap[s.charAt(j)-'A']--;       //but only char in t will count, which means only when tMap[index] > 0, buffer++
+            while(buffer == t.length()){  
+                if(end - start > j-i) {
+                    end = j;
+                    start = i;
+                }
+                tMap[s.charAt(i)-'A']++;
+                if(tMap[s.charAt(i)-'A'] > 0) buffer--;// the same only when tMap[index] > 0, which means return char from buffer
+                i++;                                   // to tMap
+            }
+        }
+        if(end == 1000_000_007) return "";
+        else return s.substring(start,end+1);
+    }
+}
