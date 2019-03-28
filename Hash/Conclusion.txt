@@ -1,0 +1,2 @@
+Hash:
+- to check if an element appears more than once.
