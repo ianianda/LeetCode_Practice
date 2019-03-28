@@ -1,0 +1,19 @@
+//nums1 and nums2 are sorted.
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        if(nums1.length==0&&nums2.length==0) return 0;
+        int[] res=new int[nums1.length+nums2.length];
+        System.arraycopy(nums1, 0, res, 0, nums1.length);
+        System.arraycopy(nums2, 0, res, nums1.length, nums2.length);
+        Arrays.sort(res);
+        System.out.println(Arrays.toString(res));
+        int start=0,end=res.length-1, mid=res.length/2;
+        if(res.length%2==1){
+            mid=res.length/2;
+            return res[mid];
+        }else{
+            mid=res.length/2;
+            return (double)(res[mid]+res[mid-1])/2;
+        }
+    }
+}
