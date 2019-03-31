@@ -1,0 +1,32 @@
+class Solution {
+    public String largestNumber(int[] nums) {
+        String res="";
+        if(nums==null||nums.length==0) return res;
+        String[] s_num = new String[nums.length];
+		for(int i = 0; i < nums.length; i++){
+		    s_num[i] = String.valueOf(nums[i]);            
+        }
+        /* Important: using comparator to compare two objects in your ways.*/
+        Comparator<String> comp = new Comparator<String>(){
+		    @Override
+		    public int compare(String str1, String str2){
+		        String s1 = str1 + str2;
+			    String s2 = str2 + str1;
+                //System.out.println(s2.compareTo(s1));
+                return s2.compareTo(s1); //?????
+                /* Java Comparator: comparing who's smaller, place the smaller one in the front.
+                   If the return value is negative, means s2 < s1, so s2 is in the front of s1.
+                */
+		    }
+	    };
+        Arrays.sort(s_num,comp);
+        if(s_num[0].charAt(0)=='0') return "0"; //IMPORTANT: edge case.
+        StringBuilder sb=new StringBuilder();
+        for(String s: s_num){
+            sb.append(s);
+        }
+        return sb.toString();
+        
+        
+    }
+}

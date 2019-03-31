@@ -1,2 +1,5 @@
 DP: each step has its own row x col's grid, update each grid by each step.
 Tree: normally use DFS/BFS with recursion/iteration based on what questions asked.
+
+k Sums template:
+https://leetcode.com/problems/4sum/discuss/8609/My-solution-generalized-for-kSums-in-JAVA

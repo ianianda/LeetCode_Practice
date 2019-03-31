@@ -1,0 +1,26 @@
+//have problem to convert arraylist to array.
+public int[] nextLargerNodes(ListNode head) {
+    ArrayList<Integer> answer=new ArrayList<>();
+	ListNode dummy = head;
+	ListNode cur=head;
+    
+	while(cur!=null){
+        if(dummy.val>=cur.val){
+        if(dummy.next==null){
+            answer.add(0);
+            break;
+        }                
+            dummy=dummy.next;
+        }else{
+            answer.add(dummy.val);
+            cur=cur.next;
+        }
+    }
+    
+    //answer.add(dummy.val);
+    
+    
+	return answer.toArray(new int[0]);
+}
+
+//IMPROVED:

@@ -1,1 +1,4 @@
-min sub string template: #209
+- min sub string template: #209
+- Java Comparator: override it to compare two objs in your way
+                   179. Largest Number
+- insertion sort: #147
