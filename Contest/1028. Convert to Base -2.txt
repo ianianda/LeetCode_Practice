@@ -16,3 +16,17 @@ public static String baseNeg2(int N) {
 	}
 
 //IMPROVED:
+
+class Solution {
+    public List<Boolean> prefixesDivBy5(int[] A) {
+        int k=0;
+        List<Boolean> res=new ArrayList<>();
+        for(int a:A){
+            //=========important=========
+            k=(k<<1|a)%5; 
+            res.add(k==0);
+            //=========important=========
+        }
+        return res;
+	}
+}
