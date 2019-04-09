@@ -1,0 +1,33 @@
+//Time Limit Exceeded:
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if(s==null||s.length()==0) return true;
+        boolean res = false;
+        int i=0;
+        for(char c:t.toCharArray()){
+            if(i<s.length()&&s.charAt(i)==c){
+                i++;
+            }
+        }
+        if(i==s.length()) return true;
+        else return false;
+        
+    }
+}
+//Improved by my own:
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        if(s==null||s.length()==0) return true;
+        boolean res = false;
+        int i=0;
+        for(char c:t.toCharArray()){
+            if(i<s.length()&&s.charAt(i)==c){
+                i++;
+            }
+            if(i==s.length()) return true;
+        }
+        //if(i==s.length()) return true;
+        return false;
+        
+    }
+}

@@ -1,1 +1,24 @@
-DP characteristics: the current solution depends on the previous one.
+template: https://blog.csdn.net/lianai911/article/details/45424703
+https://juejin.im/post/5c2308abf265da615304ce41
+
+DP characteristics: 
+
+the current solution depends on the previous one.
+repeated sub questions
+the best sub question
+
+Diff. v.s. D&C:
+
+DC: sub question is independent, using recursion.
+DP: sub question is related to each other, repeated, need to memorize, using iteration.
+
+
+
+steps:
+1. to find the formula: (VERY IMPORTANT)
+   if(r==N) MaxSum(r,j) = D(r,j)
+   else MaxSum(r,j) = Max{MaxSum(r+1,j), MaxSum(r+1,j+1) } + D(r,j)
+2. memorization:
+   the original question -> sub questions
+   record each sub question's answer into [][]
+   when the all sub questions get answers, the original one solved.

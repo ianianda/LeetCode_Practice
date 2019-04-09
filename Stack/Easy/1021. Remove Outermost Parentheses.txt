@@ -1,0 +1,14 @@
+//tricky part: to count the number of '(' there. Try not to use stack.
+// because you need to rebuild a string tho.
+//the important part is the 'opened'
+class Solution {
+    public String removeOuterParentheses(String S) {
+        StringBuilder s = new StringBuilder();
+        int opened = 0;
+        for (char c : S.toCharArray()) {
+            if (c == '(' && opened++ > 0) s.append(c);
+            if (c == ')' && opened-- > 1) s.append(c);
+        }
+        return s.toString();
+    }
+}
