@@ -1,0 +1,28 @@
+quick_sort(a, l, r):
+   p = partition(a,l,r); // O(r-l)
+   quick_sort(a,l,p);
+   quick_sort(a,p+1,r);
+
+merge_sort(a,l,r):
+   m=l+(r-1)/2;
+   merge_sort(a,l,m);
+   merge_sort(a,m+1,r);
+   merge(a,l,m,r); //O(r-l)
+
+Best case:
+T(n)=2*T(n/2)+O(n)=O(nlogn)
+
+Worse case:
+T(n)=T(n-1)+T(1)+O(n)=O(n^2)
+
+Non-worst cases:
+T(n) = T(n/10)+T(9n/10)+O(n)=O(nlogn)
+
+Space: Best/Average:O(logn)
+       Worst:O(n)
+
+Time:
+T(n)=2*T(n/2)+O(n)=O(nlogn)
+
+Space:
+O(logn+n)
