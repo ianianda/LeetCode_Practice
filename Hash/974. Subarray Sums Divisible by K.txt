@@ -1,0 +1,19 @@
+//Prefix sum
+//Key: if sum[0, i] % K == sum[0, j] % K, sum[i + 1, j] is divisible by by K.
+class Solution {
+    public int subarraysDivByK(int[] A, int K) {
+        if(A==null||A.length==0) return 0;
+        int[] map=new int[K];
+        map[0]=1;
+        int count=0,sum=0;
+        //important part
+        for(int each:A){
+            sum=(sum+each)%K;
+            if(sum<0) sum+=K;// Because -1 % 5 = -1, but we need the positive mod 4!!!!!!!!
+            count+=map[sum];
+            map[sum]++;
+        } 
+        //important part end
+        return count;
+    }
+}

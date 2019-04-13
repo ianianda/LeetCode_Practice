@@ -3,12 +3,6 @@ quick_sort(a, l, r):
    quick_sort(a,l,p);
    quick_sort(a,p+1,r);
 
-merge_sort(a,l,r):
-   m=l+(r-1)/2;
-   merge_sort(a,l,m);
-   merge_sort(a,m+1,r);
-   merge(a,l,m,r); //O(r-l)
-
 Best case:
 T(n)=2*T(n/2)+O(n)=O(nlogn)
 
@@ -21,8 +15,95 @@ T(n) = T(n/10)+T(9n/10)+O(n)=O(nlogn)
 Space: Best/Average:O(logn)
        Worst:O(n)
 
+
+merge_sort(a,l,r): // need extra space
+   m=l+(r-1)/2;
+   merge_sort(a,l,m);
+   merge_sort(a,m+1,r);
+   merge(a,l,m,r); //O(r-l)
+
 Time:
 T(n)=2*T(n/2)+O(n)=O(nlogn)
 
 Space:
 O(logn+n)
+
+------------------------------------------------------------
+binary_search(a,l,r):
+  mid=l+(r-l)/2
+  if f(mid): binary_search(a,l,mid)
+  else: binary_search(a,mid+1,r)
+
+Time Complexity:
+T(n)=T(n/2)+O(1)=O(logn)
+
+Space Complexity:
+O(logn)
+
+
+inorder(root):
+  inorder(root.left)
+  func(root.val)
+  inorder(root.right)
+
+Time Complexity:
+T(n)=2*T(n/2)+O(1)=O(n) perfect
+T(n)=T(n-1)+T(1)+O(1)=O(n) worst case
+
+Space Complexity:
+O(logn) perfect
+O(n) worst case
+
+---------------------------------------------------
+combination(d,s):
+  if d == n: return func()
+  for i in range(s,n):
+    combination(d+1,i+1)
+
+Time Complexity:
+T(n)=T(n-1)+T(n-2)+...+T(1)=O(n^2)
+
+Space Complexity:
+O(n)
+
+
+permutation(d, used):
+if d == n: return func()
+for i in range(0,n):
+  if i in used: continue
+  used.add(i)
+  permutation(d+1,used)
+  used.remove(i)
+
+Time Complexity:
+T(n)=n*T(n-1)=O(n!)
+
+Space Complexity:
+O(n)
+
+--------------------------------------------------
+DP with memorization
+
+Time: number of subproblems * exclusive time to solve each subproblem
+Space: max depth of call stack * space used by each subproblem
+
+fib(n):
+  if n < 1: return 0
+  return fib(n-1)+fib(n-2)
+
+fib(n):
+  if n < 1: return 0
+  if m[n] > 0: return m[n]
+  m[n] = fib(n-1)+fib(n-2)
+  return m[n]
+
+n subproblems:
+each problem takes O(1) to solve
+fib(n) takes O(n) time to solve
+
+
+
+
+
+
+

@@ -1,2 +1,3 @@
 Hash:
 - to check if an element appears more than once.
+- count the frequency for prefix sum.
