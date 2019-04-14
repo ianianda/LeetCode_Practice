@@ -1,0 +1,24 @@
+https://www.cnblogs.com/hiddenfox/p/3408931.html
+//requirement: cannot modify given array && extra space O(1)
+class Solution {
+    public int findDuplicate(int[] nums) {
+        if(nums==null||nums.length==0) return 0;
+        int res=0;
+        
+        int slow = 0, fast = 0, t = 0;
+        while (true) {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+            if (slow == fast) break;
+        }
+        while (true) {
+            slow = nums[slow];
+            t = nums[t];
+            if (slow == t) break;
+        }
+        return slow;
+        
+        
+        
+    }
+}

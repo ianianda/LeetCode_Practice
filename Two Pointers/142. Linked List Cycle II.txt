@@ -1,0 +1,34 @@
+https://www.cnblogs.com/hiddenfox/p/3408931.html
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        if(head==null) return null;
+        ListNode slow=head, fast=head;
+        
+        while(true){
+            if(fast==null||fast.next==null) return null; // fast reaches the end, and there's no cycle.
+            
+            // if there's a cycle:
+            slow=slow.next;
+            fast=fast.next.next;
+            if(fast==slow) break; // they meet each other, but not at the cycle point.
+        }
+        //The a=c conclusion, check link above.
+        slow=head;
+        while(slow!=fast){
+            slow=slow.next;
+            fast=fast.next;
+        }
+        return slow;
+    }
+}

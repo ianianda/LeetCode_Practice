@@ -1,7 +1,14 @@
 - Swap: 344. Reverse String
 - setup an index as foundamental, two pointers iterate the whole arrays: 15. 3Sum
-- two pointers (fast and slow): 142. Linked List Cycle II
-                                287. Find the Duplicate Number
+- two pointers (fast and slow): 
+  Using Floyd's Cycle Detection Algorithm: 
+  using two pointers: slow and fast, slow moves one step every time,
+  fast moves two steps every time, if there's a cycle, slow must could be meet fast.
+  If when slow reaches the end of the line and they have not met, which means there's
+  no cycle. Why they will definitely meet? Because if you see the line as a circle, the
+  fast moves towards the slow, so they will meet each other. 
+  142. Linked List Cycle II
+  287. Find the Duplicate Number
 - substring: 209.
    template of substring: https://leetcode.com/problems/minimum-window-substring/discuss/26808/Here-is-a-10-line-template-that-can-solve-most-'substring'-problems
 
