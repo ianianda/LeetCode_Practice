@@ -1,0 +1,31 @@
+// check the characteristics of two arrays, and the orders.
+// key: root.
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode buildTree(int[] inorder, int[] postorder) {
+        if(inorder==null||postorder==null||inorder.length!=postorder.length) return null;
+        return helper(postorder,postorder.length-1,inorder,0,inorder.length-1);
+    }
+    private TreeNode helper(int[] post, int postindex, int[] in, int start, int inindex){
+        if(start>inindex||postindex<0) return null;
+        
+        TreeNode root = new TreeNode(post[postindex]);
+        int i;
+        for(i=start;i<=inindex;i++){
+            if(in[i]==root.val) break;
+        }
+        
+        root.left=helper(post,postindex-(inindex-i+1),in,start,i-1);
+        root.right=helper(post,postindex-1,in,i+1,inindex);
+        return root;
+    }
+}
