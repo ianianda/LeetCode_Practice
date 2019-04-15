@@ -1,0 +1,28 @@
+// we can remove a stone if and only if
+// there is another stone in the same column OR row.
+
+class Solution {
+    Map<Integer,Integer> f = new HashMap<>();
+    int islands=0;
+    public int removeStones(int[][] stones) {
+        if(stones==null||stones.length==0) return 0;
+        
+        for(int i=0;i<stones.length;++i){
+            union(stones[i][0],~stones[i][1]);
+        }
+        return stones.length-islands;
+    }
+    private int find(int x){
+        if(f.putIfAbsent(x,x)==null) islands++;
+        if(x!=f.get(x)) f.put(x,find(f.get(x)));
+        return f.get(x);
+    }
+    private void union(int x,int y){
+        x=find(x);
+        y=find(y);
+        if(f.get(x)!=y){
+            f.put(find(x),find(y));
+            islands--;
+        }
+    }
+}

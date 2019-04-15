@@ -1,0 +1,20 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+        List<String> res = new ArrayList<>();
+        if(n<=0) return res;
+        
+        helper(res,"",0,0,n*2);
+        return res;
+    }
+    private void helper(List<String> res, String str, int open, int close, int total){
+        if(str.length()==total){
+            res.add(str);
+            return;
+        }
+        
+        //these two lines' order doesnt matter.
+        if(close<open) helper(res,str+")",open,close+1,total);
+        if(open<(total/2)) helper(res,str+"(",open+1,close,total);
+        
+    }
+}

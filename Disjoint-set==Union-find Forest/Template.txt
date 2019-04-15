@@ -1,0 +1,55 @@
+class UnionFindSet:
+  func UnionFindSet(n):
+     parents = [1..n]
+     ranks = [0..0] (n zeros)
+
+  func Find(x): // return root or cluster-id of x
+     if x != parents[x]:
+       parents[x] = Find(parents[x])
+     return parents[x]
+
+  func Union(x,y): // merge two clusters by rank order
+     px, py = Find(x), Find(y)
+     if ranks[px] > ranks[py]: parents[py] = px
+     if ranks[px] < ranks[py]: parents[px] = py
+     if ranks[px] == ranks[py]:
+       parents[py] = px
+       ranks[px]++
+
+----------------------------------------------------
+
+optimization of Find(x):    (1) Path Compression - O(1)
+optimization of Union(x,y): (2) Union by Rank - O(1)
+                            Space:O(n)
+
+(1) Path Compression: 
+    if we do not need to use Find(), 
+    we do not need to implement path compression.
+
+(2) Union by Rank:
+    merge low rank tree into high rank one.
+    if two sub-tree has the same rank, break tie arbitrarily (randomly choose one merges to another one) and
+    increase the merged tree's rank by 1.
+    reduce path compression overhead.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
