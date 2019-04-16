@@ -1,0 +1,26 @@
+
+  Definition for a binary tree node.
+  public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode(int x) { val = x; }
+  }
+ 
+class Solution {
+    public void flatten(TreeNode root) {
+        if(root==null) return;
+        helper(root,null);
+    }
+    private TreeNode helper(TreeNode root,TreeNode pre){
+        if(root==null) return pre;
+         these two pre orders matter
+        pre=helper(root.right,pre);
+        pre=helper(root.left,pre);
+        important part
+        root.right=pre;
+        root.left=null;
+        pre=root;
+        return pre;
+    }
+}
