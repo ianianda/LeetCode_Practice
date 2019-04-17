@@ -11,4 +11,4 @@
   287. Find the Duplicate Number
 - substring: 209.
    template of substring: https://leetcode.com/problems/minimum-window-substring/discuss/26808/Here-is-a-10-line-template-that-can-solve-most-'substring'-problems
-
+- longest substring: 904.
