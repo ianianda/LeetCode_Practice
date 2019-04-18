@@ -1,0 +1,33 @@
+// test cases:
+// 1. a>0 && b<0 : Math.min(Math.abs(a,b)) deleted || if Math.abs(a==b) both deleted
+// 2. a>0 && b>0 || a<0 && b<0 || a<0 && b>0 : all good
+// find the common characteristic in the test cases!!!!!!!!!!!!
+
+class Solution {
+    public int[] asteroidCollision(int[] A) {
+        //int[] res = new int[A.length];
+        //using stack instead:
+        Stack<Integer> st = new Stack<>();
+        if(A==null||A.length==0) return st.stream().mapToInt(i->i).toArray();;
+        
+        for(int cur:A){
+            if(cur>0){
+                st.push(cur);
+            }else{ // cur < 0
+                while(!st.empty()&&st.peek()>0&&st.peek()+cur<0){
+                    st.pop();
+                }
+                if(st.empty()){
+                    st.push(cur);
+                }else if(!st.empty()&&st.peek()>0&&st.peek()+cur==0){
+                    st.pop();
+                    continue;
+                }else if(st.peek()<0){
+                    st.push(cur);
+                }
+            }
+        }
+        return st.stream().mapToInt(i->i).toArray();
+
+    }
+}
