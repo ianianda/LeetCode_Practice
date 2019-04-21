@@ -1,0 +1,53 @@
+// It seems intuitive to use Union-Find to solve this problem. 
+// The idea is that, given a query [a, b], if they share the same root, 
+// find out the value of common_root/a and comon_root/b, 
+// then the result is (comon_root/b) / (comon_root/a)
+
+class Solution {
+    public double[] calcEquation(String[][] equations, double[] values, String[][] queries) {
+        //double[] res=new double[queries.length];
+        if(equations==null||equations.length==0) return new double[]{};
+        
+        Map<String,String> root=new HashMap<>();
+        Map<String,Double> map=new HashMap<>();
+        
+        for(int i=0;i<equations.length;i++){
+            String x1 = equations[i][0], x2 = equations[i][1];
+            root.putIfAbsent(x1,x1);
+            //root.putIfAbsent(x1,x2);
+            map.putIfAbsent(x1,1.0);
+            root.putIfAbsent(x2,x2);
+            //root.putIfAbsent(x2,x1);
+            map.putIfAbsent(x2,1.0);
+            
+            String r1=find(root,x1);
+            String r2=find(root,x2);
+            root.put(r2,r1);
+            map.put(r2,map.get(x1)*values[i]/map.get(x2));
+        }
+        
+        double[] res=new double[queries.length];
+        for(int i=0;i<queries.length;i++){
+            res[i]=-1.0;
+            String x1=queries[i][0], x2=queries[i][1];
+            if(!root.containsKey(x1)||!root.containsKey(x2)) continue;
+            String r1=find(root,x1);
+            String r2=find(root,x2);
+            if(r1.equals(r2)) res[i]=get(root,map,x2)/get(root,map,x1);
+        }
+        return res;
+    }
+    
+    private String find(Map<String,String>root, String var){
+        //check if the value is equal to var
+        if(root.get(var).equals(var)) return var;
+        return find(root,root.get(var));
+    }
+    
+    private double get(Map<String,String> root, Map<String,Double> map, String var){
+        String r=root.get(var);
+        double result=map.get(var);
+        if(r.equals(var)) return result;
+        return result*get(root,map,r);
+    }
+}

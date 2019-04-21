@@ -34,6 +34,8 @@ optimization of Union(x,y): (2) Union by Rank - O(1)
 
 
 
+- all these questions can be solved by DFS
+
 
 
 
