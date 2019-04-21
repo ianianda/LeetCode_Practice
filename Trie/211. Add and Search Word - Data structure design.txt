@@ -1,0 +1,72 @@
+class WordDictionary {
+
+    /* Create a class for node */
+    class TrieNode{
+        TrieNode[] children; // store children in an array
+        boolean istail; // record if it is the tail of a word
+        
+        /* Constructor */
+        public TrieNode(){
+            this.children = new TrieNode[26]; //IMPORTANT
+            this.istail=false;
+        }
+    }
+    
+    public TrieNode root; // create a class object
+    
+    /* Constructor of WordDictionary class */
+    public WordDictionary() {
+        this.root = new TrieNode();
+    }
+    
+
+    public void addWord(String word) {
+        TrieNode node = this.root;
+        for(int i=0;i<word.length();i++){
+            // if a char does not exit, create a node for it
+            if(node.children[word.charAt(i)-'a']==null){
+                node.children[word.charAt(i)-'a'] = new TrieNode();
+            }
+            // node will be the tail.
+            node = node.children[word.charAt(i)-'a'];
+        }
+        node.istail=true;
+    }
+    
+    public boolean search(String word) {
+        return helper(word,0,this.root);
+    }
+    
+    public boolean helper(String word, int startIdx, TrieNode node){
+        for(int i=startIdx;i<word.length();i++){
+            if(word.charAt(i)=='.'){
+                for(int j=0;j<26;j++){
+                    if(node.children[j]!=null){
+                        boolean has = helper(word,i+1,node.children[j]);//IMPORTANT
+                        if(has){
+                            return true;
+                        }else{
+                            continue;
+                        }
+                    }
+                }
+                return false;
+            }else if(node.children[word.charAt(i)-'a']==null){
+                return false;
+            }else{
+                // trie has the node, then get the node of this char
+                node = node.children[word.charAt(i)-'a'];
+            }
+        }
+        // check if the node is tail of the word
+        if(node.istail) return true;
+        else return false;
+    }
+}
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary obj = new WordDictionary();
+ * obj.addWord(word);
+ * boolean param_2 = obj.search(word);
+ */

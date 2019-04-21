@@ -1,0 +1,24 @@
+https://marian5211.github.io/2017/11/14/%E3%80%90%E4%B9%9D%E7%AB%A0%E7%AE%97%E6%B3%95%E5%BC%BA%E5%8C%96%E7%8F%AD%E3%80%91Trie%E6%A0%91/
+
+
+Using trie
+- using more space to cost less time
+- similar to hashMap(key-value), but tries's key only can be string.
+- advantage: time complexity. Insertion & Search: O(length of key).
+             Hash to calculate is O(length of key), also Hash could result in collisions.
+             Trie has better search complexity than Hash because Trie is to reduce unneccesary comparation between strings.
+- disadvantage: high space complexity.
+
+Build trie
+- can use array or dynamic pointer.
+
+
+When to use trie?
+- pre-matching
+  i.e. google autofill your search strings.
+- range checking
+- to calculate and order amount of strings.
+  i.e. how google calculates the high frequency searching words.
+
+Template
+- Each one is pretty similar, so could use either one

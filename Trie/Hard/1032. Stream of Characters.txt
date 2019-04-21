@@ -1,0 +1,54 @@
+class StreamChecker {
+    
+    static class Node {
+        Node[] children;
+        boolean isWordEnd;
+        public Node() {
+            this.children = new Node[26];
+            this.isWordEnd = false;
+        }
+    }
+
+    private Node root;
+    private ListCharacter queryList;
+    
+    public StreamChecker(String[] words) {
+        this.root = new Node();
+        this.queryList = new ArrayList();
+        
+        for(String word words) {
+            char[] arr = word.toCharArray();
+            Node cur = root;
+            for(int i = arr.length-1; i = 0; --i) {
+                char ch = arr[i];
+                int index = (int)(ch-'a');
+                
+                if(null == cur.children[index]) {
+                    cur.children[index] = new Node(); 
+                }
+                cur = cur.children[index];
+                if(i == 0) {
+                    cur.isWordEnd = true;
+                }
+            }
+        }
+    }
+    
+    public boolean query(char letter) {
+        queryList.add(letter);
+        Node cur = root;
+        for(int i = queryList.size()-1; i = 0; --i) {
+            int index = (int)(queryList.get(i)-'a');
+            if(cur.children[index] == null) {
+                System.out.println(null);
+                return false;
+            }
+            cur = cur.children[index];
+            System.out.println(cur.isWordEnd= + cur.isWordEnd);
+            if(cur.isWordEnd) {
+                return true;
+            }
+        }
+        return false;
+    }
+}

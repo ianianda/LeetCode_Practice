@@ -1,0 +1,60 @@
+class MapSum {
+    
+    class TrieNode{
+        TrieNode[] children;
+        int weight; // it is the tail
+        
+        public TrieNode(){
+            this.children = new TrieNode[26];
+            this.weight=0;
+        } 
+    }
+    
+    public TrieNode root;
+    int res = 0;
+
+    public MapSum() {
+        this.root = new TrieNode();
+    }
+    
+    public void insert(String key, int val) {
+        TrieNode node = this.root;
+        // create a trie for each node
+        for(int i=0;i<key.length();i++){
+            if(node.children[key.charAt(i)-'a']==null){
+                node.children[key.charAt(i)-'a'] = new TrieNode();
+            }
+            node = node.children[key.charAt(i)-'a'];
+        }
+        // add weight to the tail node
+        node.weight=val;
+    }
+    
+    public int sum(String prefix) {
+        TrieNode node = this.root;
+        for(int i=0;i<prefix.length();i++){
+            if(node.children[prefix.charAt(i)-'a']==null) return 0;
+            else{
+                node = node.children[prefix.charAt(i)-'a'];
+            }
+        }
+        res=0;
+        dfs(node);
+        return res;
+    }
+    
+    //IMPORTANT
+    public void dfs(TrieNode node){
+        res=res+node.weight;
+        for(int i=0;i<26;i++){
+            if(node.children[i]!=null) dfs(node.children[i]);
+        }
+    }
+}
+
+/**
+ * Your MapSum object will be instantiated and called as such:
+ * MapSum obj = new MapSum();
+ * obj.insert(key,val);
+ * int param_2 = obj.sum(prefix);
+ */
