@@ -1,0 +1,37 @@
+class Solution {
+    public int twoCitySchedCost(int[][] costs) {
+        if(costs==null||costs.length==0) return 0;
+        
+        // max value of people that each city can be assigned. 
+        int n=costs.length/2;
+        
+        int[][] dp = new int[n+1][n+1];
+        
+        for (int i = 1; i <= n; i++) {
+            // the total cost from the first to half of total people(person) go to the A city
+            dp[i][0] = dp[i - 1][0] + costs[i - 1][0];
+            
+            // the total cost from the first to half of total people(person) go to the B city
+            dp[0][i] = dp[0][i - 1] + costs[i - 1][1];
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=n;j++){
+                // dp[i][j]: each cell stands for the min cost when i people go A and j people go B
+                // i.e. dp[1][1]: the min cost when: 1 person to A, 1 person to B. 
+                //                two scenarios: first person to A, second person to B --> costs[0][0]+costs[1][1]; 
+                //                            or first person to B, second person to A --> costs[0][1]+costs[1][0]. 
+                //                Then, Math.min() to compare these 2 cases.
+                //      dp[1][2]: the min cost when: 1 person to A, 2 people to B.
+                //                scenarios: first person to A, second + third person to B --> costs[0][0]+costs[1][1] +costs[2][1]
+                //                           first person to B, second to A, third to B --> [0][1]+[1][1] +[2][1]
+                //                           first + second to B, third to A --> [0][1]+[1][1] +[2][0]
+                //                           third person to A, first + second to B --> [0][1]+[1][1] +[2][0]
+                //                           best scenario: Math.min(third go A + min cost of first two go B, third go B + min cost of first two go A and B);
+                //
+                dp[i][j] = Math.min(dp[i - 1][j] + costs[i + j - 1][0], dp[i][j - 1] + costs[i + j - 1][1]);
+            }
+        }
+        return dp[n][n]; // thus, dp[n][n] is the best result when n people go A and n people go B
+    }
+}
