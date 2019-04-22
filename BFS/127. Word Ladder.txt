@@ -1,0 +1,42 @@
+class Solution {
+    public int ladderLength(String beginWord, String endWord, List<String> wordList) {
+        int len=0;
+        if(wordList==null||wordList.isEmpty()||!wordList.contains(endWord)) return len;
+        
+        Set<String> dict = new HashSet<>(wordList);
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList<>();
+        
+        queue.offer(beginWord); // insert
+        visited.add(beginWord);
+        
+        // WARNING: ladder MUST start at 1
+        int ladder = 1;
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                String curWord = queue.poll();
+            
+                // try all possible substitution (26 characters) 
+                // in every position of current word
+                for (int j = 0; j < curWord.length(); j++) {
+                    char[] curWordArr = curWord.toCharArray();
+                    for (char c = 'a'; c <= 'z'; c++) {
+                        curWordArr[j] = c;
+                        String newWord = new String(curWordArr);
+                        if (newWord.equals(endWord)) {
+                            return ladder + 1;
+                        }
+                        // add possible word for next ladder (level)
+                        if (dict.contains(newWord) && !visited.contains(newWord)) {
+                            visited.add(newWord);
+                            queue.offer(newWord);
+                        }
+                    }
+                }
+            }
+            ladder++;
+        }
+        return len;
+    }
+}
