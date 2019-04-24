@@ -103,7 +103,8 @@ fib(n) takes O(n) time to solve
 
 
 
-
+---------------
+same: 250, 298
 
 
 
