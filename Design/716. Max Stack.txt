@@ -1,0 +1,47 @@
+class MaxStack {
+
+    ArrayList<Integer> al;
+    /** initialize your data structure here. */
+    public MaxStack() {
+        al=new ArrayList<Integer>();
+    }
+    
+    public void push(int x) {
+        al.add(x);
+    }
+    
+    public int pop() {
+        return al.remove(al.size()-1);
+    }
+    
+    public int top() {
+        return al.get(al.size()-1);
+    }
+    
+    public int peekMax() {
+        List<Integer> newList = new ArrayList<>(al);
+        Collections.sort(newList,Collections.reverseOrder()); 
+        //System.out.println(Arrays.toString(newList.toArray()));
+
+        return newList.get(0);
+    }
+    
+    public int popMax() {
+        List<Integer> newList = new ArrayList<>(al);
+        Collections.sort(newList,Collections.reverseOrder()); 
+        //System.out.println(Arrays.toString(newList.toArray()));
+        return al.remove(al.lastIndexOf(newList.get(0)));
+
+        //return newList.get(0);
+    }
+}
+
+/**
+ * Your MaxStack object will be instantiated and called as such:
+ * MaxStack obj = new MaxStack();
+ * obj.push(x);
+ * int param_2 = obj.pop();
+ * int param_3 = obj.top();
+ * int param_4 = obj.peekMax();
+ * int param_5 = obj.popMax();
+ */
