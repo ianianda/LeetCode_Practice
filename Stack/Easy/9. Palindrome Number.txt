@@ -1,0 +1,36 @@
+class Solution {
+    public boolean isPalindrome(int x) {
+        if(x<0) return false;
+        if(x==0) return true;
+        
+        int y=x;
+        Stack<Integer> queue=new Stack<>();
+        
+        while(y!=0){
+            queue.add(y%10);
+            y=y/10;
+        }
+        System.out.println(queue);
+        while(!queue.isEmpty()){
+            if((x%10)!=queue.pop()) return false;
+            x=x/10;
+        }
+        return true;
+    }
+}
+
+//better solution:
+using rev to store the later half of the number:
+i.e. 121 --> 1(last 1)2(middle)
+and modify the x into the first half of the original digit.
+12
+if there are the same, return true
+public boolean isPalindrome(int x) {
+    if (x<0 || (x!=0 && x%10==0)) return false;
+    int rev = 0;
+    while (x>rev){
+    	rev = rev*10 + x%10;
+    	x = x/10;
+    }
+    return (x==rev || x==rev/10);
+}
