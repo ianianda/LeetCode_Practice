@@ -1,0 +1,93 @@
+//CANNOT pass all cases:
+
+class ValidWordAbbr {
+
+    int len;
+    HashSet<String> h; 
+
+    public ValidWordAbbr(String[] dictionary) {
+        h = new HashSet<String>();
+        for(String s:dictionary){
+            if(s.length()<=2) h.add(s);
+            else{
+                if(s.length()<7){
+                    //System.out.println(s.charAt(0)+"1"+s.charAt(s.length()-1));
+                    h.add(s.charAt(0)+"1"+s.charAt(s.length()-1));
+                }
+                else if(s.length()<=11){
+                    //System.out.println(s.charAt(0)+""+(s.length()-2)%10+s.charAt(s.length()-1));
+                    h.add(s.charAt(0)+""+(s.length()-2)%10+s.charAt(s.length()-1));
+                }else{
+                    //System.out.println(s.charAt(0)+""+(s.length()-2)%10+s.charAt(s.length()-1));
+                    h.add(s.charAt(0)+""+(s.length()-2)%10+s.charAt(s.length()-1));
+                }
+            }
+        }
+        //System.out.println(h);
+    }
+    
+    public boolean isUnique(String word) {
+        StringBuilder sb = new StringBuilder();
+        if(word.length()<=2){
+            if(h.contains(word)) return false;
+        }else{
+            if(word.length()<7){
+                //System.out.println(s.charAt(0)+"1"+s.charAt(s.length()-1));
+                sb.append(word.charAt(0)+"1"+word.charAt(word.length()-1));
+            }
+            else if(word.length()<=11){
+                sb.append(word.charAt(0)+""+(word.length()-2)%10+word.charAt(word.length()-1));
+            }else{
+                sb.append(word.charAt(0)+""+(word.length()-2)%10+word.charAt(word.length()-1));
+            }
+        }
+        //System.out.println(h);
+        if(h.contains(sb.toString())==true) return false;
+        return true;
+    }
+}
+
+/**
+ * Your ValidWordAbbr object will be instantiated and called as such:
+ * ValidWordAbbr obj = new ValidWordAbbr(dictionary);
+ * boolean param_1 = obj.isUnique(word);
+ */
+
+//IMPROVED
+
+class ValidWordAbbr {
+
+     HashMap<String, String> map;
+
+
+    public ValidWordAbbr(String[] dictionary) {
+        map = new HashMap<String, String>();
+        for(String str: dictionary){
+            String key = getKey(str);
+            if(map.containsKey(key)){
+                if(!map.get(key).equals(str)){
+                    map.put(key,"");
+                }
+            }
+            else{
+                map.put(key,str);
+            }
+        }
+    }
+    
+    public boolean isUnique(String word) {
+        return !map.containsKey(getKey(word))||map.get(getKey(word)).equals(word);
+    }
+    
+    String getKey(String str){
+        if(str.length()<=2) return str;
+        return str.charAt(0)+Integer.toString(str.length()-2)+str.charAt(str.length()-1);
+    }
+}
+
+/**
+ * Your ValidWordAbbr object will be instantiated and called as such:
+ * ValidWordAbbr obj = new ValidWordAbbr(dictionary);
+ * boolean param_1 = obj.isUnique(word);
+ */
+
