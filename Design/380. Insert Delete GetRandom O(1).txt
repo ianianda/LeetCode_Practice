@@ -1,0 +1,42 @@
+//Key: using java random interface.
+
+class RandomizedSet {
+
+    Set<Integer> set;
+    java.util.Random rand = new java.util.Random();
+
+    
+    /** Initialize your data structure here. */
+    public RandomizedSet() {
+        set = new HashSet<>();
+    }
+    
+    /** Inserts a value to the set. Returns true if the set did not already 
+        contain the specified element. */
+    public boolean insert(int val) {
+        boolean res = !set.contains(val);
+        if(res) set.add(val);
+        return res;
+    }
+    
+    /** Removes a value from the set. Returns true if the set contained the specified element. */
+    public boolean remove(int val) {
+        boolean res = set.contains(val);
+        if(res) set.remove(val);
+        return res;
+    }
+    
+    /** Get a random element from the set. */
+    public int getRandom() {
+        List<Integer> list = new ArrayList<Integer>(set);
+        return list.get(rand.nextInt(set.size()));
+    }
+}
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */

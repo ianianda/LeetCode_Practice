@@ -1,0 +1,33 @@
+// key: choose the proper data structor for input
+// just need the value, do not need to think of others!!!!!!!!!!!!
+class MovingAverage {
+
+    private double previousSum;
+    private int maxSize;
+    private Queue<Integer> currentWindow;
+    
+    //List<Integer> list;
+    //int size;
+    /** Initialize your data structure here. */
+    public MovingAverage(int size) {
+        currentWindow = new LinkedList<Integer>();
+        maxSize = size;
+    }
+    
+    public double next(int val) {
+        //list.add(val);
+        //IMPORTANT PART
+        if(currentWindow.size()==maxSize){
+            previousSum-=currentWindow.remove();
+        }
+        previousSum+=val;
+        currentWindow.add(val);
+        return previousSum/currentWindow.size();
+    }
+}
+
+/**
+ * Your MovingAverage object will be instantiated and called as such:
+ * MovingAverage obj = new MovingAverage(size);
+ * double param_1 = obj.next(val);
+ */

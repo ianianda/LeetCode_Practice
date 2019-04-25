@@ -1,0 +1,45 @@
+// Key: rewrite comparator 
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists==null||lists.length==0) return null;
+        //PriorityQueue<Integer> pq = new PriorityQueue<>(); 
+        
+        //IMPORTANT
+        PriorityQueue<ListNode> pq= new PriorityQueue<ListNode>(lists.length, (a,b)-> a.val-b.val);
+
+        
+        ListNode dummy = new ListNode(0);
+        ListNode tail = dummy;
+        
+        //IMPORTANT: ONLY store head.
+        for(ListNode list:lists){
+            if(list!=null){
+                pq.add(list);
+                //list=list.next;
+            }
+        }
+        
+        //pq now: 1,1,2
+        
+        //IMPORTANT
+        while(!pq.isEmpty()){
+            tail.next=pq.poll(); // tail.next: 1, 2,
+            tail=tail.next; // tail: 1,
+            
+            if(tail.next!=null) pq.add(tail.next);
+        }
+        
+        
+        //System.out.println(pq);
+        return dummy.next;
+    }
+}
