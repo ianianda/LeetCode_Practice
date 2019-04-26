@@ -1,0 +1,45 @@
+//AC:
+class Solution {
+    public int[] dailyTemperatures(int[] T) {
+        if(T==null||T.length==0) return null;
+        
+        int[] diff=new int[T.length], res=new int[T.length];
+        
+        diff[0]=0;
+        for(int i=0,j=1;i<T.length-1;i++,j++){
+            diff[j]=T[j]-T[i];
+        }
+        
+        //System.out.println(Arrays.toString(diff));
+        
+        for(int i=0,j=1;i<T.length-1;i++,j++){
+            int sum=diff[j], temp=0;
+            while(sum<=0&&(j+temp)<T.length-1){
+                ++temp;
+                sum+=diff[j+temp];
+            }
+            
+            res[i]=j+temp-i;
+            if(sum<=0){
+                res[i]=0;
+                //System.out.println(i);
+            }
+        }
+        
+        return res;
+    }
+}
+
+//IMPROVED:
+public int[] dailyTemperatures(int[] temperatures) {
+    Stack<Integer> stack = new Stack<>();
+    int[] ret = new int[temperatures.length];
+    for(int i = 0; i < temperatures.length; i++) {
+        while(!stack.isEmpty() && temperatures[i] > temperatures[stack.peek()]) {
+            int idx = stack.pop();
+            ret[idx] = i - idx;
+        }
+        stack.push(i);
+    }
+    return ret;
+}
