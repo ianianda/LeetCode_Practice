@@ -1,0 +1,55 @@
+class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+       if (people == null || people.length == 0 || people[0].length == 0)
+            return new int[0][0];
+            
+        Arrays.sort(people, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                if (b[0] == a[0]) return a[1] - b[1];
+                return b[0] - a[0]; // desc order
+            }
+        });
+        
+        int n = people.length;
+        ArrayList<int[]> tmp = new ArrayList<>();
+        for (int i = 0; i < n; i++)
+            tmp.add(people[i][1], new int[]{people[i][0], people[i][1]});
+
+        int[][] res = new int[people.length][2];
+        int i = 0;
+        for (int[] k : tmp) {
+            res[i][0] = k[0];
+            res[i++][1] = k[1];
+        }
+        
+        return res;
+    }
+}
+
+// version 2:
+https://leetcode.com/problems/queue-reconstruction-by-height/discuss/89387/Java-solution-using-array-sort-and-greedy
+public class Solution {
+    public int[][] reconstructQueue(int[][] people) {
+        Arrays.sort(people, new Comparator<int[]>() {
+            public int compare(int[] a, int[] b) {
+                if (a[0] != b[0]) {
+                    return a[0] - b[0];
+                } else {
+                    return b[1] - a[1];
+                }
+            } 
+        });
+        List<Integer> list = new ArrayList<>();
+        for (int i = 0; i < people.length; i++) {
+            list.add(i);
+        }
+        int[][] res = new int[people.length][2];
+        for (int i = 0; i < people.length; i++) {
+            int index = list.get(people[i][1]);
+            res[index][0] = people[i][0];
+            res[index][1] = people[i][1];
+            list.remove(people[i][1]);
+        }
+        return res;
+    }
+}

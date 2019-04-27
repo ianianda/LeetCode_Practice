@@ -1,4 +1,4 @@
-1.sort two arrays
+1.sort two arrays, fill in the right spot in the new array.
 2.find the right/worst element meets your requirement.
 
 complexity:sort:O(nlogn) find the right order:O(n)
