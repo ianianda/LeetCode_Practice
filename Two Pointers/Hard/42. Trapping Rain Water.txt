@@ -1,0 +1,25 @@
+// using two pointers
+// https://leetcode.com/problems/trapping-rain-water/discuss/17391/Share-my-short-solution.
+class Solution {
+    public int trap(int[] height) {
+        int res=0;
+        if(height==null||height.length==0) return 0;
+        
+        int leftMax=Integer.MIN_VALUE, rightMax=Integer.MIN_VALUE;
+        
+        // IMPORTANT PART
+        for(int left=0,right=height.length-1;left<=right;){
+            leftMax=Math.max(leftMax,height[left]);
+            rightMax=Math.max(rightMax,height[right]);
+            
+            if(leftMax<rightMax){
+                res+=leftMax-height[left];
+                left++;
+            }else{
+                res+=rightMax-height[right];
+                right--;
+            }
+        }
+        return res;
+    }
+}
