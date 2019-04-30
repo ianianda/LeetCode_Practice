@@ -1,4 +1,11 @@
-BFS is the algorithm to use if we want to find the shortest path in an undirected, no loop, unweighted or same weighted graph. The first time a node is discovered during the traversal, that distance from the source would give us the shortest path. BFS has the property of always exploring the nodes that are closest to the source node first.
+BFS is the algorithm to use if we want to find 
+the shortest path in an undirected, no loop, 
+unweighted or same weighted graph. 
+The first time a node is discovered during the 
+traversal, that distance from the source would 
+give us the shortest path. BFS has the property 
+of always exploring the nodes that are closest 
+to the source node first.
 
 - Find the shortest path to somewhere
 - unweighted graph

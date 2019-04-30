@@ -1,0 +1,66 @@
+//Have error: stackoverflow
+class Solution {
+    public int[][] colorBorder(int[][] grid, int r0, int c0, int color) {
+        if(grid==null||grid.length==0) return null;
+        helper(grid,grid[r0][c0],color,r0,c0);
+        
+        return grid;
+    }
+    
+    private void helper(int[][] grid, int value, int color, int x, int y){
+        if(x<0||x>=grid.length||y<0||y>=grid[0].length) return;
+        if(grid[x][y]!=value) return;
+        grid[x][y] = color;
+      // stackoverflow part: because it will visit the cell again and again.       
+        helper(grid,value,color,x+1,y);
+        helper(grid,value,color,x-1,y);
+        helper(grid,value,color,x,y-1);
+        helper(grid,value,color,x,y+1);
+
+    }
+}
+
+//to solve: add boolean[][] to mark if we visited
+class Solution {
+    private int[][] result;
+
+    private int R;
+
+    private int C;
+
+    private boolean[][] visited;
+
+    private int finalColor;
+    public int[][] colorBorder(int[][] grid, int r0, int c0, int color) {
+        if(grid==null||grid.length==0) return null;
+        boolean[][] visited = new boolean[grid.length][grid[0].length];
+        int[][] res= new int[grid.length][grid[0].length];
+        for (int r=0; r<grid.length;r++) {
+            for (int c=0;c<grid[0].length;c++) {
+                res[r][c] = grid[r][c];
+            }
+        }
+        helper(grid,res,grid[r0][c0],visited,color,r0,c0);
+        
+        return res;
+    }
+    
+    private void helper(int[][] grid,int[][] res, int value, boolean[][] visited,int color, int x, int y){
+        if(x<0||x>=grid.length||y<0||y>=grid[0].length||grid[x][y]!=value||visited[x][y]==true) return;
+        visited[x][y] = true;
+        
+        helper(grid,res,value,visited,color,x+1,y);
+        helper(grid,res,value,visited,color,x-1,y);
+        helper(grid,res,value,visited,color,x,y-1);
+        helper(grid,res,value,visited,color,x,y+1);
+        
+        if(isBorder(grid,x,y,value)) res[x][y]=color;
+    }
+    
+    private boolean isBorder(int[][] grid,int x,int y,int color){
+        if(x==grid.length-1||y==grid[0].length-1||x==0||y==0) return true;
+        int left=grid[x][y-1], right=grid[x][y+1], up=grid[x-1][y], down=grid[x+1][y];
+        if(left!=color||right!=color||up!=color||down!=color) return true;
+        return false;
+    }
+}

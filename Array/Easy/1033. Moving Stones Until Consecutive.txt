@@ -1,0 +1,14 @@
+// Key: list different cases and then the result will be clear.
+class Solution {
+    public int[] numMovesStones(int a, int b, int c) {
+        int[] temp = {a,b,c};
+        int counter=0;
+        Arrays.sort(temp);
+        if(temp[0]+1==temp[1]&&temp[2]-1==temp[1]) return new int[]{0,0};
+        
+        // IMPORTANT PART
+        return new int[] { Math.min(temp[1]-temp[0], temp[2]-temp[1]) <= 2 ? 1 : 2, 
+                          temp[2] - temp[0] - 2 };
+
+    }
+}
