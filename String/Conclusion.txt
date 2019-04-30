@@ -2,3 +2,4 @@
    (a) order matters. i.e. sea, eat. delete s and t. ea is the same part of the two.
    (b) order does not matter. i.e. something you can use Arrays.sort(char[] c) //char[] c=string.tochararray();
    (c) useful methods: string.split("\\."); //regex. split string into string[].
+   (d) using " " +
