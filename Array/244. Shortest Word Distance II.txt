@@ -1,0 +1,82 @@
+//TLE:
+
+class WordDistance {
+
+    String[] str;
+    
+    public WordDistance(String[] words) {
+        str=words;
+    }
+    
+    public int shortest(String word1, String word2) {
+        //if(word1==null||word2==null) return 0;
+        int i=-1, j=-1, dist=Integer.MAX_VALUE;
+        for(int k=0;k<str.length;k++){
+            if(str[k].equals(word1)){
+                i=k;
+            }
+            if(str[k].equals(word2)){
+                j=k;
+            }
+            if(i>=0&&j>=0){
+                dist=Math.min(dist,Math.abs(i-j));
+            }
+        }
+        return dist;
+    }
+}
+
+/**
+ * Your WordDistance object will be instantiated and called as such:
+ * WordDistance obj = new WordDistance(words);
+ * int param_1 = obj.shortest(word1,word2);
+ */
+
+
+//Improved:
+
+class WordDistance {
+
+    Map<String, List<Integer>> map;
+    
+    public WordDistance(String[] words) {
+        map = new HashMap<>();
+        
+        for(int i=0; i<words.length; i++){
+            String temp=words[i];
+            if(map.containsKey(temp)){
+                //important
+                map.get(temp).add(i);
+            }else{
+                //important
+                List<Integer> list=new ArrayList<Integer>();
+                list.add(i);
+                map.put(temp, list);
+            }
+        }
+    }
+    
+    public int shortest(String word1, String word2) {
+        int min=Integer.MAX_VALUE;
+        List<Integer> list1=map.get(word1), list2=map.get(word2);
+        int size1=list1.size(), size2=list2.size(), i=0, j=0;
+        
+        while(i<size1&&j<size2){
+            int t1=list1.get(i), t2=list2.get(j);
+            if(t1<t2){
+                min=Math.min(min, t2-t1);
+                i++;
+            }else{
+                min=Math.min(min, t1-t2);
+                j++;
+            }
+        }                                
+        return min;     
+    }
+}
+
+/**
+ * Your WordDistance object will be instantiated and called as such:
+ * WordDistance obj = new WordDistance(words);
+ * int param_1 = obj.shortest(word1,word2);
+ */
