@@ -11,3 +11,4 @@ to the source node first.
 - unweighted graph
 - if the graph is weighted, using Dijkstra
 - using queue
+- for weighted array
