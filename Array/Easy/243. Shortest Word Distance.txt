@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int shortestDistance(vector<string>& words, string word1, string word2) {
+        int i = -1, j = -1, n = words.size(), dist = INT_MAX;
+        for (int k = 0; k < n; k++) {
+            /* if the word is equal to word1 */
+            if (words[k] == word1) {
+                i = k; // index = the word1's.
+            }
+            
+            /* if the word is equal to word2 */
+            if (words[k] == word2) {
+                j = k; // index = the word2's.
+            }
+            
+            /* if we found both */
+            if (i >= 0 && j >= 0) {
+                // important
+                dist = min(dist, abs(i - j));  // distance is the difference of j & i
+            }
+        }
+        return dist;
+    }
+};
