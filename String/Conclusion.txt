@@ -4,3 +4,4 @@
    (c) useful methods: string.split("\\."); //regex. split string into string[].
    (d) using " " +
    (e) using sb to build repeat
+   (f) using %, / to count index
