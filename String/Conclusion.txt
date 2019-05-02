@@ -3,3 +3,4 @@
    (b) order does not matter. i.e. something you can use Arrays.sort(char[] c) //char[] c=string.tochararray();
    (c) useful methods: string.split("\\."); //regex. split string into string[].
    (d) using " " +
+   (e) using sb to build repeat

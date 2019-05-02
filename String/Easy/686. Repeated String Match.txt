@@ -1,0 +1,16 @@
+class Solution {
+    public int repeatedStringMatch(String A, String B) {
+        int count=0,aLen=A.length(), bLen=B.length();
+        StringBuilder sb = new StringBuilder();
+        if(A==null||B==null) return -1;
+        
+        while(sb.indexOf(B)<0){
+            if(sb.length()-aLen>bLen){
+                return -1;
+            }
+            sb.append(A);
+            ++count;
+        }
+        return count;
+    }
+}
