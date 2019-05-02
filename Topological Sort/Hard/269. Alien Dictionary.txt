@@ -1,0 +1,70 @@
+// Key: map's degree: to count how many time a char appears.
+
+class Solution {
+    public String alienOrder(String[] words) {
+        StringBuilder sb=new StringBuilder();
+        
+        //Set<String> set = new HashSet<>();
+        /* Important: Hashset of array */
+        HashSet[] graph = new HashSet[26];
+        
+        //Important
+        Map<Integer,Integer> degree = new HashMap();
+        
+        /* Assign each char with a degree */
+        for(int i=0;i<words.length;i++){
+            for(char word:words[i].toCharArray()){
+                degree.put(word-'a',0);
+            }
+        }
+        
+        for(int i=1;i<words.length;i++){
+            String w1=words[i-1], w2=words[i];
+            int minLen=Math.min(w1.length(),w2.length()), k=0;
+            while(k<minLen){
+                char ch1=w1.charAt(k), ch2=w2.charAt(k);
+                if(ch1!=ch2){
+                    /* if char is the first time appears */
+                    if(graph[ch1-'a']==null){
+                        graph[ch1-'a']=new HashSet<Integer>();
+                    }
+                    
+                    /* if the set doesnt contain ch2 */
+                    if(graph[ch1-'a'].add(ch2-'a')){
+                        degree.put(ch2-'a',degree.getOrDefault(ch2-'a',0)+1);
+                    }
+                    break;
+                }
+                ++k;
+            }
+        }
+        
+        Queue<Integer> queue = new LinkedList<>();
+        
+        for(int node:degree.keySet()){
+            /* value==0: means the char only appears once after the previous char
+               put it into the queue
+            */
+            if(degree.get(node)==0) queue.offer(node);
+        }
+        
+        while(!queue.isEmpty()){
+            int node=queue.poll();
+            sb.append((char)(node+'a'));
+            HashSet<Integer> connect=graph[node];
+            
+            if(connect==null) continue;
+            for(int next:connect){
+                int nextDegree=degree.get(next)-1;
+                if(nextDegree==0){
+                    queue.offer(next);
+                }else{
+                    /* update degree */
+                    degree.put(next,nextDegree);
+                }
+            }
+        }
+        if(sb.length()!=degree.size()) return "";
+        return sb.toString();
+    }
+}

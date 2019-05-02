@@ -6,3 +6,4 @@ solution: DFS, start at each node.
           delete each node's and its outdegrees vertexes.
           if there's nothing left until the last node is deleted,
           there's a cycle in the graph.
+          BFS.
