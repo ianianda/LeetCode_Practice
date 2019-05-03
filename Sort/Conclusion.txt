@@ -2,3 +2,12 @@
 - Java Comparator: override it to compare two objs in your way
                    179. Largest Number
 - insertion sort: #147
+- merge sort: recursive. https://www.youtube.com/watch?v=KF2j-9iSf4Q
+  mergeSort(array){
+    mergeSort(array's left half);
+    mergeSort(array's right half);
+    Merge left & right half in sorted order
+  }
+  O(nlogn) time, O(n) extra space
+
+
