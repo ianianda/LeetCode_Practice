@@ -9,5 +9,10 @@
     Merge left & right half in sorted order
   }
   O(nlogn) time, O(n) extra space
+  when it's linked data structure & huge data, using mergesort
+
+
+
+
 
 
