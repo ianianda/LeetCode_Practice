@@ -1,0 +1,38 @@
+class Solution {
+    public int[][] insert(int[][] cur, int[] check) {
+        if(cur==null||cur.length==0||check==null||check.length==0) return new int[][]{check};
+        List<int[]> res = new ArrayList<>();
+        int index=0,size=cur.length, start=0, end=0;
+        
+            /*
+               _______ 
+                        ________ <---- (check)
+            */
+            while(index<size&&cur[index][1]<check[0]){
+                res.add(cur[index]);
+                ++index;
+            /*
+                     _______
+                ______   <--- (check)
+            */
+            }
+            while(index<size&&cur[index][0]<=check[1]){
+                start = Math.min(cur[index][0],check[0]);
+                end = Math.max(cur[index][1],check[1]);
+                check=new int[]{start,end};
+                ++index;
+            }
+        res.add(check);
+        while(index<size){
+            res.add(cur[index]);
+            ++index;
+        }
+        
+        int[][] res2=new int[res.size()][2];
+        for(int i=0;i<res2.length;i++){
+            res2[i]=res.get(i);
+        }
+
+        return res2;
+    }
+}

@@ -1,0 +1,40 @@
+// Key: using priorityqueue
+
+class Solution {
+    public String reorganizeString(String S) {
+        StringBuilder sb = new StringBuilder();
+        if(S==null||S.length()==0) return "";
+        int size=S.length();
+        HashMap<Character,Integer> hm = new HashMap<>();
+        
+        for(int i=0;i<size;i++){
+            hm.put(S.charAt(i),hm.getOrDefault(S.charAt(i),0)+1);
+        }
+        
+        //important part
+        /* asc: a->z */
+        PriorityQueue<Map.Entry<Character,Integer>> pq = new PriorityQueue<>((a,b)->(b.getValue()-a.getValue()));
+        
+        /* entryset: return a set view: i.e. a=2,b=1 */
+        pq.addAll(hm.entrySet());
+        
+        Queue<Map.Entry<Character,Integer>> queue = new LinkedList<>();
+        /* when S!=null */
+        while(!pq.isEmpty()){
+            /* poll(): Retrieves and removes the head of this queue, or returns null if this queue is empty.*/
+            Map.Entry<Character,Integer> entry = pq.poll();
+            //System.out.println(entry);
+            sb.append(entry.getKey());
+            entry.setValue(entry.getValue()-1);
+            queue.offer(entry);//insert into queue
+            
+            while(queue.size()>1){
+                Map.Entry<Character,Integer> temp=queue.poll();
+                if(temp.getValue()>0){
+                    pq.offer(temp);
+                }
+            }
+        }
+        return sb.length()==S.length()?sb.toString():"";
+    }
+}
