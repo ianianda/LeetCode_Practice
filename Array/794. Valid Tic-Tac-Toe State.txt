@@ -1,0 +1,43 @@
+class Solution {
+    public boolean validTicTacToe(String[] board) {
+        if(board==nullboard.length==0) return true;
+        int diagonal=0,antidiagonal=0, turns=0;
+        int[] rows=new int[3], cols=new int[3];
+        
+        
+        for(int i=0;iboard.length;i++){
+            for(int j=0;jboard.length;j++){
+                if(board[i].charAt(j)=='X'){
+                    ++turns;
+                    ++rows[i];
+                    ++cols[j];
+                    if(i==j) ++diagonal;
+                    if(i+j==2) ++antidiagonal;
+                }else if(board[i].charAt(j)=='O'){
+                    --turns;
+                    --rows[i];
+                    --cols[j];
+                    if(i==j) --diagonal;
+                    if(i+j==2) --antidiagonal;
+                }else{  
+                    
+                }
+            }
+        
+        }
+        
+        boolean xwin = rows[0]==3rows[1]==3rows[2]==3
+                       cols[0]==3cols[1]==3cols[2]==3diagonal==3antidiagonal==3;
+        boolean owin = rows[0]==-3rows[1]==-3rows[2]==-3
+                       cols[0]==-3cols[1]==-3cols[2]==-3diagonal==-3antidiagonal==-3;
+        
+        if(xwin&&turns==0owin&&turns==1) return false;
+        return (turns==0turns==1)&&(!xwin!owin);
+        
+    }
+}
+
+ check the amount of X and O, can be the same, but cannot be XsOs
+      if its same cannot have below
+ check if its diag,anti-diag,ver,hor forms xxxooo
+ 
