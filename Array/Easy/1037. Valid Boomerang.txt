@@ -1,0 +1,17 @@
+lesson learnt: dont overthinking
+
+/*
+The other idea is to calculate the slope of AB and AC.
+K_AB = (p[0][0] - p[1][0]) / (p[0][1] - p[1][1])
+K_AC = (p[0][0] - p[2][0]) / (p[0][1] - p[2][1])
+*/
+
+class Solution {
+    public boolean isBoomerang(int[][] p) {
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        if(p==null||p.length==0) return true;
+        
+        return (p[0][0] - p[1][0]) * (p[0][1] - p[2][1]) != (p[0][0] - p[2][0]) * (p[0][1] - p[1][1]);
+
+    }
+}

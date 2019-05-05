@@ -1,0 +1,42 @@
+/*
+// Definition for a Node.
+class Node {
+    public int val;
+    public Node next;
+    public Node random;
+
+    public Node() {}
+
+    public Node(int _val,Node _next,Node _random) {
+        val = _val;
+        next = _next;
+        random = _random;
+    }
+};
+*/
+import java.util.Hashtable;
+class Solution {
+    public Node copyRandomList(Node head) {
+        if(head==null) return null;
+        
+        Hashtable<Node,Node> ht = new Hashtable<Node,Node>();
+        Node iter=head; // using another new node to go iterating the whole list.
+        while(iter!=null){
+            /* Deep copy */
+            ht.put(iter, new Node(iter.val));
+            iter=iter.next;
+        }
+        iter=head;
+        // why we do not need to copy the val? we do it already in the several lines above.
+        while(iter!=null){
+            if(iter.next!=null){
+                ht.get(iter).next=ht.get(iter.next);
+            }
+            if(iter.random!=null){
+                ht.get(iter).random=ht.get(iter.random);
+            }
+            iter=iter.next;
+        }
+        return ht.get(head); // return the position you untouched.
+    }
+}
