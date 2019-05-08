@@ -18,3 +18,5 @@ Greedy:Looking from the start and selecting the locally optimum in the hope of r
 
 DO NOT OVERTHINKING
 
+----------
+BFS & Djakstra are greedy

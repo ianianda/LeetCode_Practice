@@ -1,5 +1,6 @@
 - Using combination(bit operation) or permutation in DFS. This is the foundamental of search problems.
-- Combination: do not care order. / Permutation: realted to order. different order counts as a situation.
+- Combination: do not care order. / 
+  Permutation: realted to order. different order counts as a situation.
 trending of this kind of questions: less and less and become more like DP.
 
 give you an array of integers, ask you:
