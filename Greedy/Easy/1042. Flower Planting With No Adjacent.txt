@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> gardenNoAdj(int N, vector<vector<int>>& paths) {
+        /* Build the adjacent graph */
+        vector<vector<int>> graph(N);
+        for(const auto& path:paths){
+            graph[path[0]-1].push_back(path[1]-1);
+            graph[path[1]-1].push_back(path[0]-1);
+        }
+        //IMPORTANT
+        vector<int> res(N,-1);//size:N, value: -1.
+        for(int i=0;i<N;i++){
+            bool used[5]={};
+            for(const auto& neighbour:graph[i]){
+                if(res[neighbour]!=-1){
+                    used[res[neighbour]]=true;
+                }
+            }
+            
+            for(int flower=1;flower<5;flower++){
+                if(!used[flower]){
+                    res[i]=flower;
+                }
+            }
+        }
+        return res;
+    }
+};
