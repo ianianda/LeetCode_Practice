@@ -1,0 +1,52 @@
+class Solution {
+    public List<List<String>> solveNQueens(int n) {
+        char[][] board=new char[n][n]; // create a nxn board
+        List<List<String>> res=new ArrayList<List<String>>();
+        /* fill the board with '.' */
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                board[i][j]='.';
+            }
+        }
+        
+        dfs(board,0,res);
+        return res;
+    }
+    
+    private void dfs(char[][] board, int colIndex, List<List<String>> res){
+        if(colIndex==board.length){
+            res.add(construct(board));
+            return;
+        }
+        for(int i=0;i<board.length;i++){
+            if(validate(board,i,colIndex)){
+                board[i][colIndex]='Q';
+                dfs(board,colIndex+1,res);
+                board[i][colIndex]='.';
+            }
+        }
+    }
+    
+    /* transfer char[][] to List<> */
+    private List<String> construct(char[][] board){
+        List<String> res=new LinkedList<>();
+        for(int i=0;i<board.length;i++){
+            String s = new String(board[i]);
+            res.add(s);
+        }
+        return res;
+    }
+    
+    private boolean validate(char[][] board, int x, int colIndex){
+        for(int i=0;i<board.length;i++){
+            for(int j=0;j<colIndex;j++){
+                if(board[i][j]=='Q'&&(x+j==colIndex+i || x+colIndex==i+j || x==i)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    
+    
+}
