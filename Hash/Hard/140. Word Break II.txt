@@ -1,0 +1,27 @@
+class Solution {
+    HashMapString,ListString map = new HashMap();
+    public ListString wordBreak(String s, ListString wordDict) {
+        ListString res=new ArrayList();  store a single word.
+        if(s==nulls.length()==0wordDict==nullwordDict.size()==0) return res;
+        
+        if(map.containsKey(s)){
+            return map.get(s);
+        }
+        if(wordDict.contains(s)){
+            res.add(s);
+        }
+        for(int i=1;is.length();i++){
+            String t=s.substring(i);
+            if(wordDict.contains(t)){
+                ListString temp = wordBreak(s.substring(0,i),wordDict);
+                if(temp.size()!=0){
+                    for(int j=0;jtemp.size();j++){
+                        res.add(temp.get(j)+ +t);
+                    }
+                }
+            }
+        }
+        map.put(s,res);
+        return res;
+    }
+}
