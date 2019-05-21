@@ -1,0 +1,3 @@
+bucket sort is the fastest, faster that quick sort.
+but its waste of space. could be the worst of wasting space.
+i.e. #164

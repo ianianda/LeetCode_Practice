@@ -24,3 +24,5 @@ steps:
    the original question -> sub questions
    record each sub question's answer into [][]
    when the all sub questions get answers, the original one solved.
+
+knapsack: #1049
