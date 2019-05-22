@@ -1,0 +1,18 @@
+class Solution {
+    public int minPatches(int[] nums, int n) {
+        if(nums==null||n<=0) return 0;
+        
+        long count=0, patch=0, len=nums.length;
+        int i=0;
+        while(patch<n){
+            if(i<len&&patch+1>=nums[i]){
+                patch+=nums[i];
+                ++i;
+            }else{
+                ++count;
+                patch+=patch+1;
+            }
+        }
+        return (int)count;
+    }
+}
