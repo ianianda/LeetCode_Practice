@@ -1,0 +1,2 @@
+- what is interactive problem?
+  means we gave a result, then the system will return a result.
