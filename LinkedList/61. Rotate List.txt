@@ -1,0 +1,69 @@
+TLE:
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        //Find the middle of the list
+        ListNode p1=head;
+        ListNode p2=head;
+        int count=k;
+        while(count>0){
+            --count;
+            p1=p1.next;
+        }
+            
+        //Reverse the half after middle  1->2->3->4->5->6 to 1->2->3->6->5->4
+        ListNode preMiddle=p1;
+        ListNode preCurrent=p1.next;
+        ListNode current=new ListNode(0);
+        while(preCurrent.next!=null){
+            current=preCurrent.next;
+        }
+            
+        //Start reorder one by one  1->2->3->6->5->4 to 1->6->2->5->3->4
+        //p1=head;
+        //p2=preMiddle.next;
+        ListNode tmp=p2;
+        while(p2!=preMiddle){
+            current.next=p2;
+            p2=tmp.next;
+            tmp=tmp.next;
+        }
+        return preMiddle;
+    }
+}
+
+//IMPROVED:
+// key:move: -------->, not value!!
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head==null||head.next==null) return head;
+        
+        ListNode dummy=new ListNode(0);
+        dummy.next=head;//important
+        
+        ListNode fast=dummy;
+        ListNode slow=dummy;
+
+        int i=0;
+        for(i=0;fast.next!=null;i++){
+            fast=fast.next;
+        }
+        
+        for(int j=i-k%i;j>0;j--){
+            slow=slow.next;
+        }
+            
+        fast.next=dummy.next;
+        dummy.next=slow.next;
+        slow.next=null;
+        
+        return dummy.next;
+    }
+}
