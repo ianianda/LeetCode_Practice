@@ -2,3 +2,7 @@ Hash:
 - to check if an element appears more than once.
 - count the frequency for prefix sum. 939,30
 - 
+
+Treeset:
+black-red-tree.
+
