@@ -1,0 +1,33 @@
+python: deque: threads safety, which means you can append left and right at the same time.
+
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val, left, right, next):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+from collections import deque
+class Solution(object):
+    def connect(self, root):
+        """
+        :type root: Node
+        :rtype: Node
+        """
+        if root == None: return
+        
+        Q = deque()
+        Q.append(root)
+        Q.append(None) # add None to the end of each level
+        
+        while Q:
+            node = Q.popleft()
+            if node != None:
+                node.next = Q[0]
+                if node.left: Q.append(node.left)
+                if node.right: Q.append(node.right)
+            else:
+                if len(Q) > 0 : Q.append(None)
+        return root
