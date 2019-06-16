@@ -2,3 +2,5 @@ similar:
 - updating element: 289, 73
 - ranges: 163, 228
 - distance: using math.min(xx,oo) to update index: 243
+- 2D -> 1D: 304
+
