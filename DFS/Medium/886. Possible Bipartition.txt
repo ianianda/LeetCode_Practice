@@ -1,0 +1,39 @@
+We can treat this problem as a graph coloring problem and we have just 2 colors
+
+class Solution(object):
+    def possibleBipartition(self, N, dislikes):
+        """
+        :type N: int
+        :type dislikes: List[List[int]]
+        :rtype: bool
+        """
+        if len(dislikes)<2:
+            return True
+        
+        color = [-1]*(N+1) # [-1,-1,-1,...]
+        neighbour = [[] for _ in range(N+1)] # if N+1 =5: [[], [], [], [], []]
+        visited = [False]*(N+1)
+        
+        for i in dislikes:
+            neighbour[i[0]].append(i[1])
+            neighbour[i[1]].append(i[0])
+        
+        start = dislikes[0][0]
+        color[start] = 1
+        queue = []
+        queue.append(start)
+        
+        for i in range(N+1):
+            if not visited[i]:
+                queue.append(i)
+            while queue:
+                element = queue.pop()
+                if not visited[element]:
+                    visited[element] = True
+                    for v in neighbour[element]:
+                        if color[v]==-1:
+                            color[v]=1-color[element]
+                            queue.append(v)
+                        if color[element]==color[v]:
+                            return False
+        return True
