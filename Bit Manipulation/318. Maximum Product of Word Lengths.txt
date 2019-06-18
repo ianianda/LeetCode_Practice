@@ -1,0 +1,32 @@
+This is how I would describe the logic here:
+
+Convert every word into a binary representation such that it has 1/0s in the place of every letter depending on occurrence; For instance : 'abc' will be 111 since 'a', 'b' & 'c' are present in the word. 'abd' will be represented as '1011' -> '1' since 'd' is present, '0' since 'c' is absent, '11' due to 'ab'.
+This binary representation is called 'mask' in the above code.
+
+If you understand ^^, then the algorithm is pretty simple:
+
+Loop through words:
+1a. create binary mask for every word
+1.b create dictionary/hash table with every mask; such that hash[mask] = length(word)
+
+Loop through all combinations in the hash table & find the max word length product
+
+Hope this helps
+
+class Solution(object):
+    def maxProduct(self, words):
+        """
+        :type words: List[str]
+        :rtype: int
+        """
+        d = {}
+        for w in words:
+            mask = 0
+            for c in set(w): # 'aaabbbccc' --> 'abc'
+                #ord(): convert char to ascii number in decimal
+                mask ^= (1 << (ord(c)-97))  # 97 in ascii is a; 1 << x move to left of x space
+            
+            d[mask] =max(d.get(mask,0),len(w))
+            #print max([d[x]*d[y] for x in d for y in d if not x & y] or [0]),x ,y
+        
+        return max([d[x] * d[y] for x in d for y in d if not x & y] or [0])

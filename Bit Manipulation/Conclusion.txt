@@ -23,3 +23,6 @@ unsign int range is larger than sign int
 10000000 10001111 11110001
 ----------
 Key: pay attention on overflow
+----------
+Direct bit manipulations are usually faster because less 
+translations from normal operations to bit manipulations are involved
