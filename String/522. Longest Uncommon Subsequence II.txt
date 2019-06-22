@@ -1,0 +1,18 @@
+class Solution(object):
+    def findLUSlength(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: int
+        """
+        if strs is None or len(strs) == 0:
+            return -1
+        
+        def issubsequence(s,t):
+            t = iter(t)
+            return all(c in t for c in s)
+        
+        for s in sorted(strs, key=len, reverse=True):
+            if sum(issubsequence(s,t) for t in strs):
+                return len(s)
+        
+        return -1
