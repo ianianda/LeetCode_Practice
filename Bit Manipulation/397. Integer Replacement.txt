@@ -1,0 +1,44 @@
+15 -> 16 -> 8 -> 4 -> 2 -> 1
+15 -> 14 -> 7 -> 6 -> 3 -> 2 -> 1
+So, for an integer, change into a double of 4 will be better.
+
+TLE:
+class Solution(object):
+    def integerReplacement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        res = 0
+        while n>1:
+            res+=1
+            if n&1: # odd
+                if n&2 and n!=3:
+                    res+=1
+                else:
+                    n-=1
+            else: #even
+                n>>=1
+        return res
+
+
+//IMPROVED:
+This gives us an O(log n) time, O(1) space solution.
+
+class Solution(object):
+    def integerReplacement(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        res = 0
+        rtn = 0
+        while n > 1:
+            rtn += 1
+            if n % 2 == 0:
+                n //= 2
+            elif n % 4 == 1 or n == 3:
+                n -= 1
+            else:
+                n += 1
+        return rtn
