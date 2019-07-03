@@ -1,0 +1,23 @@
+KEY: if a, b >3, |a-b|<=1, then a*b >= a+b.
+      So, if n = a + b, a = a1+a2, b=b1+b2, 
+      we should break n to a1+a2+b1+b2, |a1-a2|<1 and 
+     |b1-b2|<1 instead of a + b, because a1*a2>a, b1*b2>b. 
+
+class Solution(object):
+    def integerBreak(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        if n == 2:
+            return 1
+        if n == 3:
+            return 2
+        
+        list_3 = [3] * (n/3)
+        mod_3 = n%3
+        if mod_3 == 1:
+            list_3[0] +=1
+        if mod_3 == 2:
+            list_3.append(2)
+        return reduce(lambda a, b:a*b, list_3)

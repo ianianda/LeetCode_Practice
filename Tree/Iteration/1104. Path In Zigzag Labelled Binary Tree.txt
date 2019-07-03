@@ -1,0 +1,28 @@
+Time Complexity:
+O(3 log n). 3 are needed as commented in the code.
+
+Space Complexity:
+If including the space required for the return res object counts as space then we need
+O(log n) because we need to store the path from the root to the label.
+
+class Solution(object):
+    def pathInZigZagTree(self, label):
+        """
+        :type label: int
+        :rtype: List[int]
+        """
+        res = []
+        level, node_count = 1,1
+        
+        while label >= node_count*2:
+            node_count*=2
+            level+=1
+        
+        while label!=0:
+            res.append(label)
+            level_max=2**(level)-1 # **: power
+            level_min=2**(level-1)
+            label=int((level_max+level_min-label)/2)
+            level-=1
+        
+        return res[::-1]
