@@ -1,0 +1,23 @@
+the average value of A is avg, test all k items's summations, 
+        when any k_items_sum == k * avg, return True, else False
+
+# P[k] is a bitmap for all k items's summations.  
+        # For example, if P[3] == 0x111000, 
+          then all the 3 items's summations can be 3, 4, 5.
+        for the target k_items_sum and k, we have k_items_sum / k == tot_sum / alen, 
+        and k_items_sum must be an integer, k <= len(A) // 2
+        so :
+            - k_items_sum == tot_sum * k / alen == tot_sum * k // alen
+            - tot_sum * k % alen == 0
+            - gcd(tot_sum, alen) > 1             # because  k <= len(A) // 2   and  tot_sum * k % alen == 0
+
+class Solution(object):
+    def splitArraySameAverage(self, A):
+        """
+        :type A: List[int]
+        :rtype: bool
+        """
+        N,S,P = len(A),sum(A),[1]
+        for a in A:
+            P[1:] = [(p<<a) | q for p,q in zip(P,P[1:]+[0])]
+        return any(S*n%N==0 and P[n]&(1<<(S*n//N)) for n in range(1,N))
