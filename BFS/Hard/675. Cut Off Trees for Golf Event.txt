@@ -1,0 +1,80 @@
+class Solution(object):
+    def cutOffTree(self, forest):
+        """
+        :type forest: List[List[int]]
+        :rtype: int
+        """
+        nrow, ncol = len(forest), len(forest[0])
+        forest.append([0] * ncol)
+        for row in forest:
+            row.append(0)
+
+        trees = {(i, j) for i in range(nrow) for j in range(ncol)
+                 if forest[i][j] > 1}
+
+        canReach = {(0, 0)}
+        stack = [(0, 0)]
+        while stack:
+            i, j = stack.pop()
+            for i2, j2 in ((i - 1, j), (i + 1, j), (i, j - 1), (i, j + 1)):
+                if forest[i2][j2] != 0 and (i2, j2) not in canReach:
+                    canReach.add((i2, j2))
+                    stack.append((i2, j2))
+
+        if trees.difference(canReach):
+            return -1
+
+        def get_sp(p1, p2):
+            theMin = abs(p1[0] - p2[0]) + abs(p1[1] - p2[1])
+            stack1, stack2 = [p1], []
+            used, visited = {p1}, {p1}
+
+            while 1:
+                if not stack1:
+                    stack1, stack2 = stack2, stack1
+                    used.update(stack1)
+                    theMin += 2
+
+                p = stack1.pop()
+                if p == p2:
+                    break
+
+                i, j = p
+                add1, add2 = [], []
+
+                if i == p2[0]:
+                    add2.append((i - 1, j))
+                    add2.append((i + 1, j))
+                elif i < p2[0]:
+                    add2.append((i - 1, j))
+                    add1.append((i + 1, j))
+                else:
+                    add1.append((i - 1, j))
+                    add2.append((i + 1, j))
+
+                if j == p2[1]:
+                    add2.append((i, j - 1))
+                    add2.append((i, j + 1))
+                elif j < p2[1]:
+                    add2.append((i, j - 1))
+                    add1.append((i, j + 1))
+                else:
+                    add1.append((i, j - 1))
+                    add2.append((i, j + 1))
+
+                for v in add1:
+                    if forest[v[0]][v[1]] != 0 and v not in used:
+                        visited.add(v)
+                        used.add(v)
+                        stack1.append(v)
+                for v in add2:
+                    if forest[v[0]][v[1]] != 0 and v not in visited:
+                        visited.add(v)
+                        stack2.append(v)
+
+            return theMin
+
+        seq = sorted(trees, key=lambda x: forest[x[0]][x[1]])
+        if seq[0] != (0, 0):
+            seq.insert(0, (0, 0))
+        return sum(get_sp(seq[i], seq[i + 1]) for i in range(len(seq) - 1))
