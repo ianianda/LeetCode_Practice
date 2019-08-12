@@ -1,0 +1,15 @@
+KEY: find the characteristic of the question. and using this character to design algo.
+
+O(N) time O(1) space
+class Solution {
+public:
+    int repeatedNTimes(vector<int>& A) {
+        for(int i=2;i<A.size();++i){
+            if(A[i]==A[i-1]||A[i]==A[i-2]){
+                return A[i];
+            }
+        }
+        return A[0]; //if A starts from [2] does not have the one we want,
+                     //then, the first one is the one we are looking for.
+    }
+};
