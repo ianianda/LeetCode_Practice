@@ -1,0 +1,21 @@
+any() returns:
+True if at least one element of an iterable is true
+False if all elements are false or if an iterable is empty
+
+string.replace(old, new, count)
+
+The all() method returns:
+True - If all elements in an iterable are true
+False - If any element in an iterable is false
+
+Time O(N)
+Sapce O(N)
+
+class Solution(object):
+    def parseBoolExpr(self, S, t=True, f=False): #define variables here
+        """
+        :type expression: str
+        :rtype: bool
+        """
+        
+        return eval(S.replace('!', 'not |').replace('&(', 'all([').replace('|(', 'any([').replace(')', '])'))
