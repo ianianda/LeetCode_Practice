@@ -1,0 +1,34 @@
+all 'my calendar' problems can be solved by 'meeting room'
+from bisect import insort
+class MyCalendarThree(object):
+
+    def __init__(self):
+        self.times=[]
+        
+
+    def book(self, start, end):
+        # [left,right)
+        """
+        :type start: int
+        :type end: int
+        :rtype: int
+        """
+        
+        insort(self.times,(start,1))
+        insort(self.times,(end,-1))
+        
+        #print self.times
+        #IMPORTANT
+        res=cumsum=0
+        for _,x in self.times: #_:all start & end; x: 1 or -1
+            cumsum+=x
+            #print cumsum
+            #important: draw the timeline, and think of that formula: do not think like normal 
+            res=max(res,cumsum)
+        
+        return res
+
+
+# Your MyCalendarThree object will be instantiated and called as such:
+# obj = MyCalendarThree()
+# param_1 = obj.book(start,end)
